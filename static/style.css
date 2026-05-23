@@ -1569,6 +1569,9 @@ body::before {
   box-shadow: var(--shadow-sm);
 }
 .auth-form { display: flex; flex-direction: column; gap: 14px; }
+#register-step-1,
+#register-step-2 { display: flex; flex-direction: column; gap: 14px; }
+#btn-register-submit { margin-top: 6px; }
 .auth-subtitle { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
 .auth-field { display: flex; flex-direction: column; gap: 6px; }
 .auth-field label {
