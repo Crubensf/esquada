@@ -112,7 +112,6 @@ const valF1         = document.getElementById('val-f1');
 const valSE         = document.getElementById('val-se');
 const valF1novo     = document.getElementById('val-f1novo');
 const liquidFill    = document.getElementById('liquid-fill');
-const liquidMarker  = document.getElementById('liquid-marker');
 const resultPercent = document.getElementById('result-percent');
 
 // Card de score na home
@@ -120,7 +119,6 @@ const btnHomeScore   = document.getElementById('btn-home-score');
 const homeScoreLabel = document.getElementById('home-score-label');
 const homeScoreValue = document.getElementById('home-score-value');
 const homeScoreMeta  = document.getElementById('home-score-meta');
-const homeScoreMarker = document.getElementById('home-score-marker');
 
 // Área do pesquisador — upload
 const researcherCsvForm   = document.getElementById('researcher-csv-form');
@@ -228,19 +226,8 @@ function updateHomeScoreCard(state = null){
     homeScoreValue.textContent = `${result.F1novo.toFixed(1)} pontos`;
     homeScoreMeta.textContent  = `Categoria atual: ${category}. Clique para abrir o resultado salvo.`;
     if (btnHomeScore){ btnHomeScore.disabled = false; btnHomeScore.classList.add('is-interactive'); }
-    // Posiciona o marcador na barra do card home (escala 100-450)
-    if (homeScoreMarker) {
-      const f = Math.max(100, Math.min(450, result.F1novo));
-      const pct = ((f - 100) / 350) * 100;
-      homeScoreMarker.style.left = `${pct}%`;
-      homeScoreMarker.classList.add('visible');
-      const lbl = homeScoreMarker.querySelector('span');
-      if (lbl) lbl.textContent = result.F1novo.toFixed(0);
-    }
     return;
   }
-
-  if (homeScoreMarker) homeScoreMarker.classList.remove('visible');
 
   if (answered > 0){
     homeScoreLabel.textContent = 'Avaliação em andamento';
@@ -991,7 +978,7 @@ function countUp(el, from, to, duration, formatter) {
 
 const CAT_CLASSES = ['cat-muito-ruim','cat-ruim','cat-boa','cat-muito-boa','cat-excelente'];
 
-function animateLiquidFill(percent, category, scoreValue){
+function animateLiquidFill(percent, category){
   liquidFill.classList.remove('is-filling', ...CAT_CLASSES);
   liquidFill.style.transition = 'none';
   liquidFill.style.width      = '0%';
@@ -999,25 +986,9 @@ function animateLiquidFill(percent, category, scoreValue){
   if (CAT_CLASSES.includes(catClass)) liquidFill.classList.add(catClass);
   void liquidFill.offsetWidth; // força reflow para reiniciar a animação CSS
   liquidFill.style.transition = '';
-
-  // Marcador do escore
-  if (liquidMarker) {
-    liquidMarker.classList.remove('visible');
-    liquidMarker.style.transition = 'none';
-    liquidMarker.style.left = '0%';
-    void liquidMarker.offsetWidth;
-    liquidMarker.style.transition = '';
-    const labelSpan = liquidMarker.querySelector('span');
-    if (labelSpan && typeof scoreValue === 'number') labelSpan.textContent = scoreValue.toFixed(0);
-  }
-
   setTimeout(() => {
     liquidFill.classList.add('is-filling');
     liquidFill.style.width = `${percent}%`;
-    if (liquidMarker) {
-      liquidMarker.style.left = `${percent}%`;
-      liquidMarker.classList.add('visible');
-    }
   }, 60);
 }
 
@@ -1053,7 +1024,7 @@ function showResult(r, isNew = false){
     const fromVal = Math.max(SCALE_MIN, r.F1novo - 40);
     countUp(resultPercent, fromVal, r.F1novo, 900, v => `${v.toFixed(1)} pontos`);
   }
-  animateLiquidFill(percent, r["escore.cat.novo"], r.F1novo);
+  animateLiquidFill(percent, r["escore.cat.novo"]);
   saveAssessmentState();
 }
 
