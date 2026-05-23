@@ -2005,16 +2005,16 @@ button:focus-visible { border-radius: var(--r-pill); }
   white-space: nowrap;
 }
 .info-cat-card p { font-size: .875rem; color: var(--muted); line-height: 1.65; }
-.ic-muito-ruim { border-left-color: #d94f4f; }
-.ic-muito-ruim .ic-top strong { color: #b03030; }
-.ic-ruim { border-left-color: #e8874a; }
-.ic-ruim .ic-top strong { color: #b05020; }
-.ic-boa { border-left-color: #d4a820; }
-.ic-boa .ic-top strong { color: #7a6000; }
-.ic-muito-boa { border-left-color: #4daa6a; }
-.ic-muito-boa .ic-top strong { color: #1a6035; }
-.ic-excelente { border-left-color: #2e8b57; }
-.ic-excelente .ic-top strong { color: #104828; }
+.ic-muito-ruim { border-left-color: var(--score-1); }
+.ic-muito-ruim .ic-top strong { color: var(--brand-darker); }
+.ic-ruim       { border-left-color: var(--score-2); }
+.ic-ruim       .ic-top strong { color: var(--brand-darker); }
+.ic-boa        { border-left-color: var(--score-3); }
+.ic-boa        .ic-top strong { color: var(--brand-dark); }
+.ic-muito-boa  { border-left-color: var(--score-4); }
+.ic-muito-boa  .ic-top strong { color: var(--score-4); }
+.ic-excelente  { border-left-color: var(--score-5); }
+.ic-excelente  .ic-top strong { color: var(--score-5); }
 
 /* FAQ accordion */
 .faq-list { max-width: 760px; }
@@ -2238,11 +2238,17 @@ button:focus-visible { border-radius: var(--r-pill); }
   text-overflow: ellipsis;
   -webkit-text-fill-color: #fff;
 }
-.sv-ruim1 { background: linear-gradient(135deg, #d94f4f 0%, #b03030 100%); }
-.sv-ruim2 { background: linear-gradient(135deg, #e8874a 0%, #b05020 100%); }
-.sv-boa   { background: linear-gradient(135deg, #f0c040 0%, #c79516 100%); }
-.sv-mboa  { background: linear-gradient(135deg, #6abf6a 0%, #2e8b57 100%); }
-.sv-exc   { background: linear-gradient(135deg, #2e8b57 0%, #104828 100%); }
+.sv-ruim1 { background: var(--score-1); }
+.sv-ruim2 { background: var(--score-2); }
+.sv-boa   { background: var(--score-3); }
+.sv-mboa  { background: var(--score-4); }
+.sv-exc   { background: var(--score-5); }
+/* Texto escuro nos 2 tons mais claros para garantir contraste */
+.sv-ruim1 span, .sv-ruim2 span {
+  color: var(--brand-darker);
+  -webkit-text-fill-color: var(--brand-darker);
+  text-shadow: 0 1px 0 rgba(255,255,255,.35);
+}
 
 .scale-viz-axis {
   position: relative;
