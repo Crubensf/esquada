@@ -499,6 +499,7 @@ document.querySelectorAll('[data-nav-section]').forEach(btn => {
       if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
     if (nav) nav.classList.remove('nav-open');
+    document.querySelector('.site-header')?.classList.remove('menu-open');
   });
 });
 
@@ -799,8 +800,13 @@ document.querySelectorAll('[data-action="open-researcher"]').forEach(el =>
   el.addEventListener('click', openResearcher)
 );
 
-if (btnMenu && nav){
-  btnMenu.addEventListener('click', () => nav.classList.toggle('nav-open'));
+if (btnMenu && nav) {
+  const siteHeader = document.querySelector('.site-header');
+  btnMenu.addEventListener('click', () => {
+    const opening = !nav.classList.contains('nav-open');
+    nav.classList.toggle('nav-open');
+    if (siteHeader) siteHeader.classList.toggle('menu-open', opening);
+  });
 }
 
 

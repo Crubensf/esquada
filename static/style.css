@@ -2099,6 +2099,8 @@ button:focus-visible { border-radius: var(--r-pill); }
   .nav { display: none; width: 100%; flex-direction: column; align-items: flex-start; gap: 2px; padding: 8px 0 0; margin: 0; border-top: 1px solid var(--line); }
   .nav.nav-open { display: flex; }
   .menu-toggle { display: inline-flex; }
+  /* Quando menu aberto, troca pill por cantos arredondados normais */
+  .site-header.menu-open { border-radius: var(--r-xl); }
   .header-actions { margin-left: auto; }
   .score-card-content { padding: 28px; }
 }
