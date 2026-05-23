@@ -13,6 +13,7 @@ import json
 import logging
 import os
 import random
+import re
 import secrets
 import time
 import urllib.request
@@ -180,8 +181,8 @@ def auth_register():
 
     if not name or not institution or not email or not password or not code:
         return jsonify(error="Todos os campos obrigatórios devem ser preenchidos."), 400
-    if len(password) < 6:
-        return jsonify(error="A senha precisa ter pelo menos 6 caracteres."), 400
+    if len(password) < 8 or not re.search(r'\d', password) or not re.search(r'[^a-zA-Z0-9]', password):
+        return jsonify(error="A senha não atende aos requisitos de segurança (mín. 8 caracteres, 1 número, 1 símbolo)."), 400
 
     conn = get_db()
 
