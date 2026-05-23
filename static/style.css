@@ -2043,11 +2043,13 @@ button:focus-visible { border-radius: var(--r-pill); }
   .isd-body { padding: 18px 20px; }
   .ic-top { flex-wrap: wrap; }
   .container { padding: 0 18px; }
-  .site-header { margin: 8px 8px 0; }
+  /* Botões de conteúdo ficam full-width */
   .btn { width: 100%; }
-  .header-actions { width: 100%; order: 4; }
-  .header-actions .btn { flex: 1; }
-  /* Hide researcher button from header on small screens — accessible via hamburger menu */
+  /* Header: 1 linha só — esconde CTA e pesquisadores, mantém auth compacto */
+  .site-header { margin: 8px 8px 0; }
+  .header-actions { width: auto; order: 0; margin-left: auto; flex-shrink: 0; }
+  .header-actions .btn { width: auto; flex: none; }
+  #btn-start-header { display: none; }
   #btn-researcher-header { display: none; }
   .cta-row .btn, .cta-row .link-cta { width: 100%; }
   .q-options { grid-template-columns: 1fr; }
