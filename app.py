@@ -16,6 +16,7 @@ import random
 import re
 import secrets
 import time
+import urllib.error
 import urllib.request
 import base64 as _b64
 from functools import wraps
@@ -131,9 +132,14 @@ def _send_verification_email(to_email: str, code: str) -> None:
             "Content-Type":  "application/json",
         },
     )
-    with urllib.request.urlopen(req, timeout=15) as resp:
-        if resp.status >= 400:
-            raise RuntimeError(f"Resend status {resp.status}")
+    try:
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            if resp.status >= 400:
+                body = resp.read().decode(errors="replace")
+                raise RuntimeError(f"Resend {resp.status}: {body}")
+    except urllib.error.HTTPError as e:
+        body = e.read().decode(errors="replace")
+        raise RuntimeError(f"Resend {e.code}: {body}") from e
 
 
 @app.route("/api/auth/send-verification", methods=["POST"])
@@ -162,9 +168,10 @@ def send_verification():
 
     try:
         _send_verification_email(email, code)
-    except Exception:
-        logging.exception("Falha ao enviar e-mail de verificação")
-        return jsonify(error="Falha ao enviar o e-mail. Tente novamente."), 500
+    except Exception as exc:
+        detail = str(exc)
+        logging.exception("Falha ao enviar e-mail de verificação: %s", detail)
+        return jsonify(error="Falha ao enviar o e-mail. Tente novamente.", detail=detail), 500
 
     return jsonify(ok=True)
 
