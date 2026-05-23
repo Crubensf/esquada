@@ -638,8 +638,8 @@ formRegister.addEventListener('submit', async (e) => {
     registerError.textContent = 'Preencha todos os campos obrigatórios.';
     registerError.classList.remove('hidden'); return;
   }
-  if (pw.length < 6) {
-    registerError.textContent = 'A senha precisa ter pelo menos 6 caracteres.';
+  if (pw.length < 8 || !/\d/.test(pw) || !/[^a-zA-Z0-9]/.test(pw)) {
+    registerError.textContent = 'A senha não atende aos requisitos de segurança.';
     registerError.classList.remove('hidden'); return;
   }
   if (pw !== pw2) {
@@ -1334,3 +1334,283 @@ document.querySelectorAll('.pw-toggle').forEach(btn => {
     btn.querySelector('.eye-hide').style.display = isHidden ? '' : 'none';
   });
 });
+
+
+// ─── Requisitos de senha em tempo real ────────────────────────────────────────
+
+(function setupPwReqs() {
+  const pwInput = document.getElementById('register-password');
+  const pw2Input = document.getElementById('register-password2');
+  const reqLen = document.getElementById('req-len');
+  const reqNum = document.getElementById('req-num');
+  const reqSym = document.getElementById('req-sym');
+  if (!pwInput || !reqLen) return;
+
+  function check(pw) {
+    const okLen = pw.length >= 8;
+    const okNum = /\d/.test(pw);
+    const okSym = /[^a-zA-Z0-9]/.test(pw);
+    reqLen.className = 'req-item ' + (pw.length === 0 ? '' : okLen ? 'ok' : 'fail');
+    reqNum.className = 'req-item ' + (pw.length === 0 ? '' : okNum ? 'ok' : 'fail');
+    reqSym.className = 'req-item ' + (pw.length === 0 ? '' : okSym ? 'ok' : 'fail');
+  }
+
+  pwInput.addEventListener('input', () => check(pwInput.value));
+
+  // Confirm password — marca vermelho se diferente (apenas quando tem conteúdo)
+  if (pw2Input) {
+    pw2Input.addEventListener('input', () => {
+      if (!pw2Input.value) { pw2Input.removeAttribute('data-match'); return; }
+      pw2Input.dataset.match = pw2Input.value === pwInput.value ? 'ok' : 'fail';
+    });
+  }
+})();
+
+
+// ─── Autocomplete de instituição ──────────────────────────────────────────────
+
+const UNIVERSITIES = [
+  // Federais — sigla, nome completo
+  ['UFPI',   'Universidade Federal do Piauí'],
+  ['UFPB',   'Universidade Federal da Paraíba'],
+  ['UFPE',   'Universidade Federal de Pernambuco'],
+  ['UFPA',   'Universidade Federal do Pará'],
+  ['UFPR',   'Universidade Federal do Paraná'],
+  ['UFPEL',  'Universidade Federal de Pelotas'],
+  ['UFP',    'Universidade Federal do Piauí'],
+  ['UFRJ',   'Universidade Federal do Rio de Janeiro'],
+  ['UFMG',   'Universidade Federal de Minas Gerais'],
+  ['UFRGS',  'Universidade Federal do Rio Grande do Sul'],
+  ['UFSC',   'Universidade Federal de Santa Catarina'],
+  ['UFSM',   'Universidade Federal de Santa Maria'],
+  ['UFBA',   'Universidade Federal da Bahia'],
+  ['UFCE',   'Universidade Federal do Ceará'],
+  ['UFC',    'Universidade Federal do Ceará'],
+  ['UFRN',   'Universidade Federal do Rio Grande do Norte'],
+  ['UFAL',   'Universidade Federal de Alagoas'],
+  ['UFSE',   'Universidade Federal de Sergipe'],
+  ['UFS',    'Universidade Federal de Sergipe'],
+  ['UFMA',   'Universidade Federal do Maranhão'],
+  ['UFAM',   'Universidade Federal do Amazonas'],
+  ['UFAC',   'Universidade Federal do Acre'],
+  ['UFRR',   'Universidade Federal de Roraima'],
+  ['UFAP',   'Universidade Federal do Amapá'],
+  ['UFMT',   'Universidade Federal de Mato Grosso'],
+  ['UFMS',   'Universidade Federal de Mato Grosso do Sul'],
+  ['UFG',    'Universidade Federal de Goiás'],
+  ['UFTO',   'Universidade Federal do Tocantins'],
+  ['UFT',    'Universidade Federal do Tocantins'],
+  ['UFRO',   'Universidade Federal de Rondônia'],
+  ['UNIR',   'Universidade Federal de Rondônia'],
+  ['UFES',   'Universidade Federal do Espírito Santo'],
+  ['UFJF',   'Universidade Federal de Juiz de Fora'],
+  ['UFLA',   'Universidade Federal de Lavras'],
+  ['UFOP',   'Universidade Federal de Ouro Preto'],
+  ['UFSJ',   'Universidade Federal de São João del-Rei'],
+  ['UFTM',   'Universidade Federal do Triângulo Mineiro'],
+  ['UFU',    'Universidade Federal de Uberlândia'],
+  ['UFV',    'Universidade Federal de Viçosa'],
+  ['UFVJM',  'Universidade Federal dos Vales do Jequitinhonha e Mucuri'],
+  ['UFERSA', 'Universidade Federal Rural do Semi-Árido'],
+  ['UFRRJ',  'Universidade Federal Rural do Rio de Janeiro'],
+  ['UFRPE',  'Universidade Federal Rural de Pernambuco'],
+  ['UFRA',   'Universidade Federal Rural da Amazônia'],
+  ['UNIFAP', 'Universidade Federal do Amapá'],
+  ['UNIFAL', 'Universidade Federal de Alfenas'],
+  ['UNIFEI', 'Universidade Federal de Itajubá'],
+  ['UNIFESP','Universidade Federal de São Paulo'],
+  ['UNIRIO', 'Universidade Federal do Estado do Rio de Janeiro'],
+  ['UFOB',   'Universidade Federal do Oeste da Bahia'],
+  ['UFOPA',  'Universidade Federal do Oeste do Pará'],
+  ['UFSB',   'Universidade Federal do Sul da Bahia'],
+  ['UFCA',   'Universidade Federal do Cariri'],
+  ['UFCAT',  'Universidade Federal de Catalão'],
+  ['UFGD',   'Universidade Federal da Grande Dourados'],
+  ['UFCG',   'Universidade Federal de Campina Grande'],
+  ['UFERSA', 'Universidade Federal Rural do Semi-Árido'],
+  ['UNIVASF','Universidade Federal do Vale do São Francisco'],
+  ['UFCSPA', 'Universidade Federal de Ciências da Saúde de Porto Alegre'],
+  ['FURG',   'Universidade Federal do Rio Grande'],
+  ['UNIPAMPA','Universidade Federal do Pampa'],
+  ['UFFS',   'Universidade Federal da Fronteira Sul'],
+  ['UTFPR',  'Universidade Tecnológica Federal do Paraná'],
+  // IFs — Instituto Federal
+  ['IFPI',   'Instituto Federal do Piauí'],
+  ['IFMA',   'Instituto Federal do Maranhão'],
+  ['IFCE',   'Instituto Federal do Ceará'],
+  ['IFRN',   'Instituto Federal do Rio Grande do Norte'],
+  ['IFPB',   'Instituto Federal da Paraíba'],
+  ['IFPE',   'Instituto Federal de Pernambuco'],
+  ['IFAL',   'Instituto Federal de Alagoas'],
+  ['IFSE',   'Instituto Federal de Sergipe'],
+  ['IFBA',   'Instituto Federal da Bahia'],
+  ['IFES',   'Instituto Federal do Espírito Santo'],
+  ['IFRJ',   'Instituto Federal do Rio de Janeiro'],
+  ['IFF',    'Instituto Federal Fluminense'],
+  ['IFMG',   'Instituto Federal de Minas Gerais'],
+  ['IFNMG',  'Instituto Federal do Norte de Minas Gerais'],
+  ['IFTM',   'Instituto Federal do Triângulo Mineiro'],
+  ['IFSUDESTEMG','Instituto Federal do Sudeste de Minas Gerais'],
+  ['IFSUL',  'Instituto Federal Sul-rio-grandense'],
+  ['IFRS',   'Instituto Federal do Rio Grande do Sul'],
+  ['IFSul',  'Instituto Federal Sul-rio-grandense'],
+  ['IFSC',   'Instituto Federal de Santa Catarina'],
+  ['IFC',    'Instituto Federal Catarinense'],
+  ['IFPR',   'Instituto Federal do Paraná'],
+  ['IFSP',   'Instituto Federal de São Paulo'],
+  ['IFMS',   'Instituto Federal de Mato Grosso do Sul'],
+  ['IFMT',   'Instituto Federal de Mato Grosso'],
+  ['IFGO',   'Instituto Federal de Goiás'],
+  ['IFTO',   'Instituto Federal do Tocantins'],
+  ['IFRO',   'Instituto Federal de Rondônia'],
+  ['IFAM',   'Instituto Federal do Amazonas'],
+  ['IFAC',   'Instituto Federal do Acre'],
+  ['IFRR',   'Instituto Federal de Roraima'],
+  ['IFAP',   'Instituto Federal do Amapá'],
+  ['IFPA',   'Instituto Federal do Pará'],
+  // Estaduais & outras
+  ['USP',    'Universidade de São Paulo'],
+  ['UNICAMP','Universidade Estadual de Campinas'],
+  ['UNESP',  'Universidade Estadual Paulista'],
+  ['UFRB',   'Universidade Federal do Recôncavo da Bahia'],
+  ['UECE',   'Universidade Estadual do Ceará'],
+  ['UERN',   'Universidade do Estado do Rio Grande do Norte'],
+  ['UESPI',  'Universidade Estadual do Piauí'],
+  ['UEMA',   'Universidade Estadual do Maranhão'],
+  ['UEPA',   'Universidade do Estado do Pará'],
+  ['UEA',    'Universidade do Estado do Amazonas'],
+  ['UERJ',   'Universidade do Estado do Rio de Janeiro'],
+  ['UDESC',  'Universidade do Estado de Santa Catarina'],
+  ['UESC',   'Universidade Estadual de Santa Cruz'],
+  ['UEFS',   'Universidade Estadual de Feira de Santana'],
+  ['UESB',   'Universidade Estadual do Sudoeste da Bahia'],
+  ['UNEB',   'Universidade do Estado da Bahia'],
+  ['UPE',    'Universidade de Pernambuco'],
+  ['UEPB',   'Universidade Estadual da Paraíba'],
+  ['URCA',   'Universidade Regional do Cariri'],
+  ['UVA',    'Universidade Estadual Vale do Acaraú'],
+  ['UFNT',   'Universidade Federal do Norte do Tocantins'],
+  ['UnB',    'Universidade de Brasília'],
+  ['UNB',    'Universidade de Brasília'],
+  ['UFABC',  'Universidade Federal do ABC'],
+  // Privadas relevantes
+  ['PUC',    'Pontifícia Universidade Católica'],
+  ['PUCSP',  'PUC-SP — Pontifícia Universidade Católica de São Paulo'],
+  ['PUCRS',  'PUC-RS — Pontifícia Universidade Católica do Rio Grande do Sul'],
+  ['PUCMG',  'PUC-MG — Pontifícia Universidade Católica de Minas Gerais'],
+  ['PUCRJ',  'PUC-Rio — Pontifícia Universidade Católica do Rio de Janeiro'],
+  ['FGV',    'Fundação Getulio Vargas'],
+  ['INSPER', 'Insper — Instituto de Ensino e Pesquisa'],
+  ['IBMEC',  'Ibmec'],
+  ['MACKENZIE','Universidade Presbiteriana Mackenzie'],
+  ['UNINOVE','Universidade Nove de Julho'],
+  ['UNIP',   'Universidade Paulista'],
+  ['ANHANGUERA','Universidade Anhanguera'],
+  ['ESTÁCIO','Estácio de Sá'],
+  ['UNICEUB','Centro Universitário de Brasília'],
+];
+
+// Normaliza texto: remove acentos e deixa em minúsculas para comparação
+function _normalizeInst(str) {
+  return str.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+}
+
+function searchUniversities(query) {
+  if (!query || query.length < 2) return [];
+  const q = _normalizeInst(query);
+  const seen = new Set();
+  const starts = [], contains = [];
+
+  UNIVERSITIES.forEach(([abbr, name]) => {
+    const abbrN = _normalizeInst(abbr);
+    const nameN = _normalizeInst(name);
+    const key = abbr + '|' + name;
+    if (seen.has(key)) return;
+
+    if (abbrN.startsWith(q) || nameN.startsWith(q)) {
+      seen.add(key); starts.push({ abbr, name });
+    } else if (abbrN.includes(q) || nameN.includes(q)) {
+      seen.add(key); contains.push({ abbr, name });
+    }
+  });
+
+  return [...starts, ...contains].slice(0, 8);
+}
+
+(function setupInstAutocomplete() {
+  const input = document.getElementById('register-institution');
+  const list  = document.getElementById('inst-suggestions');
+  if (!input || !list) return;
+
+  let activeIdx = -1;
+  let items = [];
+
+  function renderList(results) {
+    list.innerHTML = '';
+    items = results;
+    activeIdx = -1;
+
+    if (!results.length) { list.classList.add('hidden'); return; }
+
+    results.forEach(({ abbr, name }, i) => {
+      const li = document.createElement('li');
+      li.setAttribute('role', 'option');
+      li.setAttribute('aria-selected', 'false');
+      li.dataset.idx = i;
+      li.innerHTML = `<span class="sugg-abbr">${abbr}</span><span class="sugg-name">${name}</span>`;
+      li.addEventListener('mousedown', (e) => {
+        e.preventDefault(); // evita blur antes do click
+        selectItem(i);
+      });
+      list.appendChild(li);
+    });
+    list.classList.remove('hidden');
+  }
+
+  function selectItem(idx) {
+    if (idx < 0 || idx >= items.length) return;
+    input.value = items[idx].name;
+    list.classList.add('hidden');
+    activeIdx = -1;
+  }
+
+  function setActive(idx) {
+    const lis = list.querySelectorAll('li');
+    lis.forEach(li => { li.classList.remove('active'); li.setAttribute('aria-selected', 'false'); });
+    activeIdx = idx;
+    if (idx >= 0 && idx < lis.length) {
+      lis[idx].classList.add('active');
+      lis[idx].setAttribute('aria-selected', 'true');
+      lis[idx].scrollIntoView({ block: 'nearest' });
+    }
+  }
+
+  input.addEventListener('input', () => {
+    renderList(searchUniversities(input.value));
+  });
+
+  input.addEventListener('keydown', (e) => {
+    if (list.classList.contains('hidden')) return;
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setActive(Math.min(activeIdx + 1, items.length - 1));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setActive(Math.max(activeIdx - 1, -1));
+    } else if (e.key === 'Enter' && activeIdx >= 0) {
+      e.preventDefault();
+      selectItem(activeIdx);
+    } else if (e.key === 'Escape') {
+      list.classList.add('hidden');
+    }
+  });
+
+  input.addEventListener('blur', () => {
+    // pequeno delay para o mousedown do item processar antes do blur
+    setTimeout(() => list.classList.add('hidden'), 120);
+  });
+
+  input.addEventListener('focus', () => {
+    if (input.value.length >= 2) renderList(searchUniversities(input.value));
+  });
+})();

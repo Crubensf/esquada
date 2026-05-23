@@ -876,21 +876,29 @@
           </div>
           <div class="auth-field">
             <label for="register-institution">Instituição <span class="req-marker" aria-hidden="true">*</span></label>
-            <input type="text" id="register-institution" autocomplete="organization" placeholder="Universidade ou organização" required aria-required="true">
+            <div class="inst-wrap">
+              <input type="text" id="register-institution" autocomplete="off" placeholder="Ex.: UFP, IFPI, UNB…" required aria-required="true" aria-autocomplete="list" aria-controls="inst-suggestions">
+              <ul id="inst-suggestions" class="inst-suggestions hidden" role="listbox" aria-label="Sugestões de instituição"></ul>
+            </div>
           </div>
           <div class="auth-field">
             <label for="register-email">E-mail <span class="req-marker" aria-hidden="true">*</span></label>
             <input type="email" id="register-email" autocomplete="email" placeholder="seu@email.com" required aria-required="true">
           </div>
           <div class="auth-field">
-            <label for="register-password">Senha <span class="auth-field-hint">(mín. 6 caracteres)</span> <span class="req-marker" aria-hidden="true">*</span></label>
+            <label for="register-password">Senha <span class="req-marker" aria-hidden="true">*</span></label>
             <div class="auth-field-pw">
-              <input type="password" id="register-password" autocomplete="new-password" placeholder="••••••" minlength="6" required aria-required="true">
+              <input type="password" id="register-password" autocomplete="new-password" placeholder="••••••••" minlength="8" required aria-required="true">
               <button type="button" class="pw-toggle" aria-label="Mostrar senha" data-target="register-password">
                 <svg class="eye-show" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                 <svg class="eye-hide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
               </button>
             </div>
+            <ul class="pw-reqs" id="pw-reqs" aria-label="Requisitos da senha">
+              <li class="req-item" id="req-len" data-req="len">Mínimo 8 caracteres</li>
+              <li class="req-item" id="req-num" data-req="num">Pelo menos 1 número</li>
+              <li class="req-item" id="req-sym" data-req="sym">Pelo menos 1 caractere especial (!@#$…)</li>
+            </ul>
           </div>
           <div class="auth-field">
             <label for="register-password2">Confirmar senha <span class="req-marker" aria-hidden="true">*</span></label>
