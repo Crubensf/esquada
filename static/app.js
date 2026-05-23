@@ -112,6 +112,7 @@ const valF1         = document.getElementById('val-f1');
 const valSE         = document.getElementById('val-se');
 const valF1novo     = document.getElementById('val-f1novo');
 const liquidFill    = document.getElementById('liquid-fill');
+const liquidMarker  = document.getElementById('liquid-marker');
 const resultPercent = document.getElementById('result-percent');
 
 // Card de score na home
@@ -978,7 +979,7 @@ function countUp(el, from, to, duration, formatter) {
 
 const CAT_CLASSES = ['cat-muito-ruim','cat-ruim','cat-boa','cat-muito-boa','cat-excelente'];
 
-function animateLiquidFill(percent, category){
+function animateLiquidFill(percent, category, scoreValue){
   liquidFill.classList.remove('is-filling', ...CAT_CLASSES);
   liquidFill.style.transition = 'none';
   liquidFill.style.width      = '0%';
@@ -986,9 +987,25 @@ function animateLiquidFill(percent, category){
   if (CAT_CLASSES.includes(catClass)) liquidFill.classList.add(catClass);
   void liquidFill.offsetWidth; // força reflow para reiniciar a animação CSS
   liquidFill.style.transition = '';
+
+  // Marcador do escore
+  if (liquidMarker) {
+    liquidMarker.classList.remove('visible');
+    liquidMarker.style.transition = 'none';
+    liquidMarker.style.left = '0%';
+    void liquidMarker.offsetWidth;
+    liquidMarker.style.transition = '';
+    const labelSpan = liquidMarker.querySelector('span');
+    if (labelSpan && typeof scoreValue === 'number') labelSpan.textContent = scoreValue.toFixed(0);
+  }
+
   setTimeout(() => {
     liquidFill.classList.add('is-filling');
     liquidFill.style.width = `${percent}%`;
+    if (liquidMarker) {
+      liquidMarker.style.left = `${percent}%`;
+      liquidMarker.classList.add('visible');
+    }
   }, 60);
 }
 
@@ -1013,17 +1030,18 @@ function showResult(r, isNew = false){
 
   show(viewResult);
 
-  // Barra de preenchimento: escala de 150 a 375
-  const f       = Math.max(150, Math.min(375, r.F1novo));
-  const percent = ((f - 150) / (375 - 150)) * 100;
+  // Barra de preenchimento: escala visual de 100 a 450 (range = 350)
+  const SCALE_MIN = 100, SCALE_MAX = 450;
+  const f       = Math.max(SCALE_MIN, Math.min(SCALE_MAX, r.F1novo));
+  const percent = ((f - SCALE_MIN) / (SCALE_MAX - SCALE_MIN)) * 100;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reducedMotion) {
     resultPercent.textContent = `${r.F1novo.toFixed(1)} pontos`;
   } else {
-    const fromVal = Math.max(150, r.F1novo - 40);
+    const fromVal = Math.max(SCALE_MIN, r.F1novo - 40);
     countUp(resultPercent, fromVal, r.F1novo, 900, v => `${v.toFixed(1)} pontos`);
   }
-  animateLiquidFill(percent, r["escore.cat.novo"]);
+  animateLiquidFill(percent, r["escore.cat.novo"], r.F1novo);
   saveAssessmentState();
 }
 

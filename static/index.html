@@ -19,7 +19,7 @@
         <span class="brand-logo" aria-hidden="true">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2C8 6 6 9 6 13a6 6 0 0 0 12 0c0-4-2-7-6-11z" fill="currentColor"/><path d="M12 8c-2 2-3 4-3 6a3 3 0 0 0 6 0c0-2-1-4-3-6z" fill="rgba(255,255,255,.3)"/></svg>
         </span>
-        <span class="brand-text">esquada<span class="brand-dot" aria-hidden="true">.</span></span>
+        <span class="brand-text">ESQUADA<span class="brand-dot" aria-hidden="true">.</span></span>
       </button>
 
       <nav class="nav" aria-label="Navegação principal">
@@ -49,7 +49,7 @@
 
       <section id="home-hero" class="home-hero">
         <div class="hero-inner">
-          <span class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Esquada · Avaliação científica</span>
+          <span class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>ESQUADA · Avaliação científica</span>
           <h1 class="hero-h1">A qualidade da sua alimentação.<br><span class="hero-h1-soft">Em alguns minutos.</span></h1>
           <p class="hero-sub">Uma avaliação científica validada por pesquisa em nutrição. Responda, descubra e acompanhe.</p>
           <div class="cta-row">
@@ -294,10 +294,29 @@
           <div id="result-grade" class="result-grade">—</div>
           <div class="liquid-wrap">
             <div class="liquid-track">
+              <!-- zonas de fundo proporcionais (de 100 a 450, range = 350) -->
+              <div class="lt-zone z-muito-ruim" style="--w: 14.29%; --l: 0%;"  aria-hidden="true"></div>
+              <div class="lt-zone z-ruim"      style="--w: 14.29%; --l: 14.29%;" aria-hidden="true"></div>
+              <div class="lt-zone z-boa"       style="--w: 21.43%; --l: 28.57%;" aria-hidden="true"></div>
+              <div class="lt-zone z-muito-boa" style="--w: 28.57%; --l: 50%;"    aria-hidden="true"></div>
+              <div class="lt-zone z-excelente" style="--w: 21.43%; --l: 78.57%;" aria-hidden="true"></div>
+              <!-- ticks verticais nas fronteiras -->
+              <span class="lt-tick" style="--p: 14.29%;" aria-hidden="true"></span>
+              <span class="lt-tick" style="--p: 28.57%;" aria-hidden="true"></span>
+              <span class="lt-tick" style="--p: 50%;"    aria-hidden="true"></span>
+              <span class="lt-tick" style="--p: 78.57%;" aria-hidden="true"></span>
+              <!-- preenchimento -->
               <div id="liquid-fill" class="liquid-fill"></div>
+              <!-- marcador do escore -->
+              <div id="liquid-marker" class="liquid-marker" aria-hidden="true"><span></span></div>
             </div>
             <div class="liquid-legend">
-              <span>150</span><span>275</span><span>375</span>
+              <span style="--p: 0%;">100</span>
+              <span style="--p: 14.29%;">150</span>
+              <span style="--p: 28.57%;">200</span>
+              <span style="--p: 50%;">275</span>
+              <span style="--p: 78.57%;">375</span>
+              <span style="--p: 100%;">450+</span>
             </div>
           </div>
         </div>
@@ -573,8 +592,8 @@
 
       <div class="info-hero">
         <div class="info-hero-inner">
-          <span class="section-label">Sobre o ESQUADA</span>
-          <h1 class="info-hero-title">Entenda o instrumento</h1>
+          <span class="section-label">Sobre a ESQUADA</span>
+          <h1 class="info-hero-title">Entenda a escala</h1>
           <p class="info-hero-sub">Escala validada de qualidade da dieta, baseada no Guia Alimentar para a População Brasileira e calibrada por Teoria de Resposta ao Item.</p>
           <div class="info-pub-pill" role="note" aria-label="Referência da publicação">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
@@ -592,11 +611,11 @@
       <section class="info-block">
         <div class="info-block-head">
           <span class="section-label">O instrumento</span>
-          <h2 class="info-h2">O que é o ESQUADA</h2>
+          <h2 class="info-h2">O que é a ESQUADA</h2>
         </div>
         <div class="info-prose">
-          <p>O <strong>ESQUADA</strong> (Escala de Qualidade da Dieta) é a primeira escala brasileira que avalia a qualidade da dieta em coerência com o <strong>Guia Alimentar para a População Brasileira</strong> (2014). Foi desenvolvido por pesquisadores da USP e da UFSC, validado em amostra de <strong>2.059 adolescentes e adultos</strong> entre 15 e 50 anos.</p>
-          <p>Diferente de recordatórios alimentares tradicionais, o ESQUADA usa itens ordinais calibrados pela <strong>Teoria de Resposta ao Item (TRI)</strong> com o Modelo de Resposta Gradual de Samejima — uma estatística mais robusta que considera tanto o consumo de alimentos quanto as práticas alimentares (cozinhar, tomar café da manhã, substituir refeições por lanches).</p>
+          <p>A <strong>ESQUADA</strong> (Escala de Qualidade da Dieta) é a primeira escala brasileira que avalia a qualidade da dieta em coerência com o <strong>Guia Alimentar para a População Brasileira</strong> (2014). Foi desenvolvida por pesquisadores da USP e da UFSC, validada em amostra de <strong>2.059 adolescentes e adultos</strong> entre 15 e 50 anos.</p>
+          <p>Diferente de recordatórios alimentares tradicionais, a ESQUADA usa itens ordinais calibrados pela <strong>Teoria de Resposta ao Item (TRI)</strong> com o Modelo de Resposta Gradual de Samejima — uma estatística mais robusta que considera tanto o consumo de alimentos quanto as práticas alimentares (cozinhar, tomar café da manhã, substituir refeições por lanches).</p>
           <p>São <strong>25 itens precisos</strong> selecionados dentre 52 candidatos, com excelente ajuste do modelo (RMSEA = 0,01; CFI = 0,99) e <strong>sem comportamento diferencial</strong> em relação a sexo e idade — ou seja, mede com a mesma precisão indivíduos de diferentes perfis.</p>
         </div>
         <div class="avaliado-grid info-domains-grid">
@@ -893,7 +912,7 @@
               O que é o Modelo de Resposta Gradual (GRM)?
               <svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
             </button>
-            <div class="faq-a" hidden><p>Um modelo da <strong>Teoria de Resposta ao Item (TRI)</strong> para itens com categorias ordenadas. Estima a probabilidade de cada categoria em função do traço latente θ usando parâmetros de discriminação (<em>a</em>) e limiares (<em>d</em>) calibrados por item. Os 25 itens do ESQUADA têm <em>a</em> entre 0,76 e 2,24.</p></div>
+            <div class="faq-a" hidden><p>Um modelo da <strong>Teoria de Resposta ao Item (TRI)</strong> para itens com categorias ordenadas. Estima a probabilidade de cada categoria em função do traço latente θ usando parâmetros de discriminação (<em>a</em>) e limiares (<em>d</em>) calibrados por item. Os 25 itens da ESQUADA têm <em>a</em> entre 0,76 e 2,24.</p></div>
           </div>
 
           <div class="faq-item" role="listitem">
@@ -938,7 +957,7 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-left">
-        <span class="footer-brand">esquada<span class="footer-brand-dot" aria-hidden="true"></span></span>
+        <span class="footer-brand">ESQUADA<span class="footer-brand-dot" aria-hidden="true"></span></span>
         <small>© 2025 — Avaliação de qualidade da dieta</small>
       </div>
       <nav class="footer-links" aria-label="Links do rodapé">

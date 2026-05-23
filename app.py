@@ -106,7 +106,7 @@ def _send_verification_email(to_email: str, code: str) -> None:
                 max-width:480px;margin:0 auto;padding:40px 32px;color:#0f1c25">
       <h2 style="margin:0 0 8px;font-size:22px">Verifique seu e-mail</h2>
       <p style="margin:0 0 28px;color:#4e5a63;font-size:15px;line-height:1.5">
-        Use o código abaixo para concluir seu cadastro no ESQUADA.
+        Use o código abaixo para concluir seu cadastro na ESQUADA.
         Ele expira em <strong>10 minutos</strong>.
       </p>
       <div style="background:#f3eee5;border-radius:14px;padding:28px;

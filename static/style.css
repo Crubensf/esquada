@@ -150,9 +150,9 @@ body::before {
 .brand-text {
   font-family: var(--f-display);
   font-size: 19px; font-weight: 700;
-  letter-spacing: -.035em;
+  letter-spacing: -.02em;
   color: var(--ink);
-  text-transform: lowercase;
+  text-transform: uppercase;
   display: inline-flex; align-items: baseline;
 }
 .brand-dot {
@@ -932,6 +932,27 @@ body::before {
   overflow: hidden;
   box-shadow: inset 0 1px 2px rgba(15, 28, 37, .05);
 }
+/* Zonas de fundo (gradiente suave por categoria) */
+.lt-zone {
+  position: absolute; top: 0; bottom: 0;
+  left: var(--l); width: var(--w);
+  opacity: .18;
+  pointer-events: none;
+}
+.z-muito-ruim { background: var(--score-1); }
+.z-ruim       { background: var(--score-2); }
+.z-boa        { background: var(--score-3); }
+.z-muito-boa  { background: var(--score-4); }
+.z-excelente  { background: var(--score-5); }
+/* Ticks divisórios entre zonas */
+.lt-tick {
+  position: absolute; top: 4px; bottom: 4px;
+  left: var(--p);
+  width: 1px;
+  background: rgba(15, 28, 37, .22);
+  z-index: 2;
+  pointer-events: none;
+}
 .liquid-fill {
   position: absolute; left: 0; top: 0; bottom: 0;
   width: 0; min-width: 0; max-width: 100%;
@@ -940,7 +961,34 @@ body::before {
   background: linear-gradient(90deg, var(--score-3), var(--score-5));
   overflow: hidden;
   box-shadow: 0 4px 16px rgba(28, 113, 132, .25);
+  z-index: 1;
 }
+/* Marcador vertical do escore atual */
+.liquid-marker {
+  position: absolute; top: -6px; bottom: -6px;
+  left: 0;
+  width: 3px;
+  background: var(--ink);
+  border-radius: 2px;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: left 2.4s var(--ease-out), opacity .3s .8s;
+  z-index: 3;
+  pointer-events: none;
+}
+.liquid-marker span {
+  position: absolute; top: -22px; left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--f-mono);
+  font-size: 10.5px; font-weight: 700;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line-2, var(--line));
+  border-radius: 4px;
+  padding: 2px 5px;
+  white-space: nowrap;
+}
+.liquid-marker.visible { opacity: 1; }
 .liquid-fill::after {
   content: ""; position: absolute; inset: 0;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,.4), transparent);
@@ -954,11 +1002,30 @@ body::before {
 .liquid-fill.cat-muito-boa  { background: linear-gradient(90deg, var(--score-2), var(--score-5)); }
 .liquid-fill.cat-excelente  { background: linear-gradient(90deg, var(--score-3), var(--score-5)); }
 .liquid-legend {
-  display: flex; justify-content: space-between;
+  position: relative;
+  height: 18px;
+  margin-top: 10px;
   font-family: var(--f-mono);
-  font-size: 11px; color: var(--muted);
-  font-weight: 500; margin-top: 10px;
+  font-size: 10.5px; color: var(--muted);
+  font-weight: 500;
 }
+.liquid-legend span {
+  position: absolute;
+  left: var(--p);
+  transform: translateX(-50%);
+}
+.liquid-legend span:first-child { transform: translateX(0); }
+.liquid-legend span:last-child  { transform: translateX(-100%); }
+.liquid-legend span::before {
+  content: '';
+  position: absolute;
+  top: -7px; left: 50%;
+  transform: translateX(-50%);
+  width: 1px; height: 5px;
+  background: var(--line-2, var(--line));
+}
+.liquid-legend span:first-child::before { left: 0; transform: none; }
+.liquid-legend span:last-child::before  { left: auto; right: 0; transform: none; }
 .result-right { display: flex; flex-direction: column; gap: 18px; }
 .result-text {
   font-size: 16px; line-height: 1.6; color: var(--ink-2);
@@ -1647,7 +1714,7 @@ body::before {
 .footer-brand {
   font-family: var(--f-display);
   font-size: 15px; font-weight: 700;
-  letter-spacing: -.025em; text-transform: lowercase;
+  letter-spacing: -.015em; text-transform: uppercase;
   color: var(--ink);
 }
 .footer-brand-dot {
