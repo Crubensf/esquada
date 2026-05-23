@@ -91,7 +91,7 @@ body {
   overflow-x: hidden;
 }
 a { color: inherit; text-decoration: none; }
-button { font: inherit; cursor: pointer; touch-action: manipulation; }
+button { font: inherit; color: inherit; cursor: pointer; touch-action: manipulation; }
 strong { font-weight: 600; }
 
 .container { max-width: 1180px; margin: 0 auto; padding: 0 28px; position: relative; }
@@ -543,6 +543,7 @@ body::before {
 .area-researcher {
   background: linear-gradient(155deg, #fef6ec 0%, #fce6d9 100%);
   border-color: rgba(244, 165, 130, .35);
+  color: var(--ink);
 }
 .area-researcher::before { background: radial-gradient(circle, rgba(244, 165, 130, .2), transparent 65%) !important; }
 .area-researcher .area-icon {
