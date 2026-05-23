@@ -1,0 +1,939 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ESQUADA — Avaliação de Qualidade da Dieta</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Ir para o conteúdo principal</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <button id="btn-home" class="brand brand-button" type="button">
+        <span class="brand-logo" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2C8 6 6 9 6 13a6 6 0 0 0 12 0c0-4-2-7-6-11z" fill="currentColor"/><path d="M12 8c-2 2-3 4-3 6a3 3 0 0 0 6 0c0-2-1-4-3-6z" fill="rgba(255,255,255,.3)"/></svg>
+        </span>
+        <span class="brand-text">esquada<span class="brand-dot" aria-hidden="true">.</span></span>
+      </button>
+
+      <nav class="nav" aria-label="Navegação principal">
+        <button class="nav-link nav-link-btn" type="button" data-nav-section="home-hero">Início</button>
+        <button class="nav-link nav-link-btn" type="button" data-nav-section="home-how">Como funciona</button>
+        <button class="nav-link nav-link-btn" id="btn-info-nav" type="button">Sobre</button>
+        <button class="nav-link nav-link-btn" id="btn-history-nav" type="button">Meus resultados</button>
+        <button class="nav-link nav-link-btn nav-researcher-mobile" type="button" data-action="open-researcher">Pesquisadores</button>
+      </nav>
+
+      <div class="header-actions">
+        <button id="btn-auth-header" class="btn btn-ghost btn-header" type="button">Entrar</button>
+        <button id="btn-researcher-header" class="btn btn-ghost btn-header" type="button">Pesquisadores</button>
+        <button id="btn-start-header" class="btn btn-primary btn-header" type="button">Começar avaliação</button>
+      </div>
+
+      <button id="btn-menu" class="menu-toggle" type="button" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="container" id="main-content" tabindex="-1">
+
+    <!-- ═══ HOME ══════════════════════════════════════════════════════════════ -->
+    <section id="view-home" class="home-shell">
+
+      <section id="home-hero" class="home-hero">
+        <div class="hero-inner">
+          <span class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Esquada · Avaliação científica</span>
+          <h1 class="hero-h1">A qualidade da sua alimentação.<br><span class="hero-h1-soft">Em alguns minutos.</span></h1>
+          <p class="hero-sub">Uma avaliação científica validada por pesquisa em nutrição. Responda, descubra e acompanhe.</p>
+          <div class="cta-row">
+            <button id="btn-start" class="btn btn-primary" type="button">Começar agora</button>
+            <button class="link-cta" type="button" data-action="open-researcher">
+              Sou pesquisador
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-showcase">
+          <button id="btn-home-score" class="score-card" type="button" disabled>
+            <div class="score-card-glow" aria-hidden="true"></div>
+            <div class="score-card-content">
+              <div class="score-card-header">
+                <span id="home-score-label" class="score-label">
+                  <span class="score-pulse"></span>
+                  Seu score
+                </span>
+                <div class="score-indicator"></div>
+              </div>
+              <strong id="home-score-value" class="score-value">Sem resultado salvo</strong>
+              <p id="home-score-meta" class="score-meta">Finalize a avaliação para ver sua pontuação na escala 250/50.</p>
+              <div class="score-scale">
+                <div class="scale-bar">
+                  <div class="scale-segment seg-muito-ruim"></div>
+                  <div class="scale-segment seg-ruim"></div>
+                  <div class="scale-segment seg-boa"></div>
+                  <div class="scale-segment seg-muito-boa"></div>
+                  <div class="scale-segment seg-excelente"></div>
+                </div>
+                <div class="scale-labels">
+                  <span>150</span><span>200</span><span>275</span><span>375</span>
+                </div>
+              </div>
+            </div>
+          </button>
+        </div>
+      </section>
+
+      <!-- Por onde começar -->
+      <section id="home-actions" class="home-section reveal">
+        <div class="section-label">Por onde começar</div>
+        <h2 class="section-h2">Escolha sua área</h2>
+        <div class="area-grid">
+          <button class="area-card area-user" type="button" data-action="start-quiz">
+            <div class="area-icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="area-body">
+              <span class="area-kicker">Para uso pessoal</span>
+              <strong>Avaliação Individual</strong>
+              <p>Responda as perguntas sobre seus hábitos e veja sua pontuação com a classificação da dieta.</p>
+            </div>
+            <span class="area-arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </button>
+          <button class="area-card area-researcher" type="button" data-action="open-researcher">
+            <div class="area-icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="area-body">
+              <span class="area-kicker">Para pesquisadores</span>
+              <strong>Análise em Lote</strong>
+              <p>Envie um CSV com múltiplos participantes e receba os escores pelo modelo GRM via EAP.</p>
+            </div>
+            <span class="area-arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Como funciona -->
+      <section id="home-how" class="home-section reveal">
+        <div class="section-label">Como funciona</div>
+        <h2 class="section-h2">Em três etapas simples</h2>
+        <div class="steps-row">
+          <div class="step">
+            <div class="step-num">01</div>
+            <div class="step-body">
+              <strong>Responda as perguntas</strong>
+              <p>São 25 perguntas rápidas sobre o que você come. Sem certo ou errado, só honestidade.</p>
+            </div>
+          </div>
+          <div class="step-connector" aria-hidden="true"></div>
+          <div class="step">
+            <div class="step-num">02</div>
+            <div class="step-body">
+              <strong>O app calcula tudo</strong>
+              <p>O cálculo acontece automaticamente via modelo GRM com estimação EAP ao terminar.</p>
+            </div>
+          </div>
+          <div class="step-connector" aria-hidden="true"></div>
+          <div class="step">
+            <div class="step-num">03</div>
+            <div class="step-body">
+              <strong>Veja seu resultado</strong>
+              <p>Sua pontuação aparece com a classificação da dieta — de muito ruim a excelente.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sobre -->
+      <section id="home-about" class="home-section reveal">
+        <div class="about-grid">
+          <div class="about-left">
+            <div class="section-label">Por que confiar</div>
+            <h2 class="section-h2">Construída sobre pesquisa</h2>
+            <p class="about-intro">As perguntas foram desenvolvidas e validadas por pesquisadores de nutrição. A pontuação usa <strong>Teoria de Resposta ao Item</strong> — o mesmo método de grandes estudos populacionais.</p>
+            <div class="feature-list">
+              <div class="feature-item">
+                <div class="fi-dot" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                </div>
+                <div>
+                  <strong>Resultado imediato</strong>
+                  <p>Pontuação e classificação aparecem assim que você termina.</p>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="fi-dot" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <div>
+                  <strong>Para qualquer pessoa</strong>
+                  <p>Sem precisar entender de nutrição. As perguntas são diretas.</p>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="fi-dot" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                </div>
+                <div>
+                  <strong>Progresso salvo</strong>
+                  <p>Saiu no meio? Suas respostas ficam guardadas localmente.</p>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="fi-dot" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                </div>
+                <div>
+                  <strong>Histórico de avaliações</strong>
+                  <p>Acompanhe sua evolução com o gráfico de progresso.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-right">
+            <div class="about-avaliado-head">
+              <span class="section-label">O que é avaliado</span>
+              <h3>O que a ESQUADA mede</h3>
+            </div>
+            <div class="avaliado-grid">
+              <div class="avaliado-card">
+                <div class="avaliado-icon-wrap">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+                </div>
+                <strong>Refeições do dia</strong>
+                <p>Café, almoço e substituições por lanche</p>
+              </div>
+              <div class="avaliado-card">
+                <div class="avaliado-icon-wrap">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22V12m0 0C12 6 6 3 6 3s0 6 6 9zm0 0c0-6 6-9 6-9s0 6-6 9z"/></svg>
+                </div>
+                <strong>Alimentos naturais</strong>
+                <p>Frutas e legumes — frequência semanal</p>
+              </div>
+              <div class="avaliado-card">
+                <div class="avaliado-icon-wrap">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+                </div>
+                <strong>Alimentos integrais</strong>
+                <p>Grãos e cereais — variedade na alimentação</p>
+              </div>
+              <div class="avaliado-card">
+                <div class="avaliado-icon-wrap">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+                </div>
+                <strong>Ultraprocessados</strong>
+                <p>Fast-food, embutidos e refrigerantes</p>
+              </div>
+            </div>
+            <div class="cat-scale-card">
+              <div class="csc-title">Classificações da dieta</div>
+              <div class="csc-rows">
+                <div class="csc-row"><span class="csc-dot"></span><span class="csc-label">Muito ruim</span><span class="csc-range">≤ 150</span></div>
+                <div class="csc-row"><span class="csc-dot"></span><span class="csc-label">Ruim</span><span class="csc-range">150 — 200</span></div>
+                <div class="csc-row"><span class="csc-dot"></span><span class="csc-label">Boa</span><span class="csc-range">200 — 275</span></div>
+                <div class="csc-row"><span class="csc-dot"></span><span class="csc-label">Muito boa</span><span class="csc-range">275 — 375</span></div>
+                <div class="csc-row"><span class="csc-dot"></span><span class="csc-label">Excelente</span><span class="csc-range">> 375</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </section>
+
+    <!-- ═══ QUIZ ══════════════════════════════════════════════════════════════ -->
+    <section id="view-quiz" class="quiz-shell hidden">
+      <div class="quiz-topbar">
+        <button id="btn-back" class="back-link" type="button">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          Voltar
+        </button>
+        <div class="quiz-progress-wrap">
+          <div class="quiz-progress-meta">
+            <span id="quiz-progress">Pergunta 1 de 25</span>
+            <span id="quiz-progress-percent">0%</span>
+          </div>
+          <div id="quiz-progress-bar" class="quiz-progress-track" role="progressbar" aria-label="Progresso do questionário" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="Pergunta 1 de 25">
+            <div id="quiz-progress-fill" class="quiz-progress-fill"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quiz-body">
+        <p id="q-text" class="q-text">Carregando…</p>
+        <div id="q-options" class="q-options"></div>
+      </div>
+
+      <div class="quiz-nav">
+        <button id="btn-prev" class="btn btn-ghost" disabled>Anterior</button>
+        <button id="btn-next" class="btn btn-primary" disabled>Próximo</button>
+      </div>
+    </section>
+
+    <!-- ═══ RESULTADO ══════════════════════════════════════════════════════════ -->
+    <section id="view-result" class="result-shell hidden">
+      <div class="result-back">
+        <button id="btn-restart" class="back-link" type="button">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          Alterar respostas
+        </button>
+      </div>
+      <div class="result-body">
+        <div class="result-left">
+          <span class="section-label">Seu resultado</span>
+          <strong id="result-percent" class="result-score">0,0 pontos</strong>
+          <div id="result-grade" class="result-grade">—</div>
+          <div class="liquid-wrap">
+            <div class="liquid-track">
+              <div id="liquid-fill" class="liquid-fill"></div>
+            </div>
+            <div class="liquid-legend">
+              <span>150</span><span>275</span><span>375</span>
+            </div>
+          </div>
+        </div>
+        <div class="result-right">
+          <p id="result-text" class="result-text">Seu resultado aparecerá aqui.</p>
+          <div class="result-pills">
+            <div class="rpill"><span class="rpill-label">F1 (θ)</span><strong id="val-f1">—</strong></div>
+            <div class="rpill"><span class="rpill-label">SE</span><strong id="val-se">—</strong></div>
+            <div class="rpill"><span class="rpill-label">F1novo</span><strong id="val-f1novo">—</strong></div>
+          </div>
+          <div class="result-actions">
+            <button id="btn-home-2" class="btn btn-primary" type="button">Voltar ao início</button>
+            <button id="btn-view-history" class="btn btn-ghost" type="button">Ver histórico</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ HISTÓRICO ══════════════════════════════════════════════════════════ -->
+    <section id="view-history" class="history-shell hidden">
+      <div class="view-back">
+        <button id="btn-back-history" class="back-link" type="button">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          Voltar
+        </button>
+      </div>
+      <div class="view-hero">
+        <span class="eyebrow">Seus resultados</span>
+        <h1>Histórico de avaliações</h1>
+        <p class="muted">Veja como a qualidade da sua dieta evoluiu ao longo do tempo.</p>
+      </div>
+
+      <div id="history-empty" class="history-empty hidden">
+        <div class="empty-icon">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <strong>Nenhuma avaliação ainda</strong>
+        <p>Complete o questionário para ver seus resultados aqui.</p>
+        <button id="btn-start-from-history" class="btn btn-primary">Fazer avaliação</button>
+      </div>
+
+      <div id="history-content">
+        <div class="history-stats" id="history-stats"></div>
+        <div class="history-chart-block">
+          <div class="hchart-head">
+            <strong>Evolução do escore (F1novo)</strong>
+            <span class="history-chart-legend">
+              <span class="legend-dot ld-muito-ruim"></span>Muito ruim
+              <span class="legend-dot ld-ruim"></span>Ruim
+              <span class="legend-dot ld-boa"></span>Boa
+              <span class="legend-dot ld-muito-boa"></span>Muito boa
+              <span class="legend-dot ld-excelente"></span>Excelente
+            </span>
+          </div>
+          <div class="hchart-wrap">
+            <svg id="history-chart-svg" class="history-chart-svg" viewBox="0 0 800 220" aria-label="Gráfico de evolução do escore"></svg>
+          </div>
+        </div>
+        <div class="history-list-head">
+          <strong>Avaliações anteriores</strong>
+          <button id="btn-clear-history" class="btn-text-danger" type="button">Limpar histórico</button>
+        </div>
+        <div id="history-list" class="history-list"></div>
+      </div>
+    </section>
+
+    <!-- ═══ PESQUISADOR ════════════════════════════════════════════════════════ -->
+    <section id="view-researcher" class="researcher-shell hidden">
+      <div class="view-back">
+        <button id="btn-back-researcher" class="back-link" type="button">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          Voltar
+        </button>
+      </div>
+
+      <div class="researcher-hero">
+        <div class="rh-left">
+          <span class="eyebrow eyebrow-gold">Para pesquisadores</span>
+          <h1>Área do Pesquisador</h1>
+          <p>Avalie a qualidade da dieta de múltiplos participantes. Envie um CSV, receba os escores pelo modelo GRM via EAP.</p>
+        </div>
+        <div class="rh-right">
+          <div class="rchips">
+            <div class="rchip"><strong>GRM</strong><span>Modelo de Resposta Gradual</span></div>
+            <div class="rchip"><strong>EAP</strong><span>Estimação bayesiana</span></div>
+            <div class="rchip"><strong>250/50</strong><span>Escala transformada</span></div>
+          </div>
+          <div id="researcher-user-bar" class="researcher-user-bar hidden">
+            <div class="user-bar-inner">
+              <div class="user-avatar" id="user-avatar-initials">—</div>
+              <div class="user-bar-info">
+                <span class="user-bar-greeting">Bem-vindo,</span>
+                <strong id="user-bar-name">—</strong>
+                <span id="user-bar-email" class="user-bar-email">—</span>
+              </div>
+              <button id="btn-logout" class="btn-logout" type="button">Sair</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="calc-block">
+        <div class="block-head">
+          <span class="section-label">Metodologia</span>
+          <h2>Como o cálculo funciona</h2>
+        </div>
+        <div class="calc-grid">
+          <article class="calc-card">
+            <div class="calc-card-icon ci-grm">GRM</div>
+            <strong>Modelo de Resposta Gradual</strong>
+            <p>Cada item pode ter 2, 3 ou 4 categorias ordenadas. O GRM modela a probabilidade de cada categoria em função do traço latente θ e dos parâmetros <em>a</em> e <em>d</em>.</p>
+          </article>
+          <article class="calc-card">
+            <div class="calc-card-icon ci-eap">EAP</div>
+            <strong>Estimação EAP</strong>
+            <p>Expected A Posteriori: integração numérica por quadratura de Gauss-Hermite (61 pontos) sobre a distribuição a priori N(0,1). Inclui escore θ e erro padrão SE.</p>
+          </article>
+          <article class="calc-card">
+            <div class="calc-card-icon ci-f1">F1</div>
+            <strong>Escala 250/50</strong>
+            <p>O escore bruto θ (F1) é convertido pela fórmula <strong>F1novo = 250 + 50 × F1</strong>. Os cortes foram definidos na validação da escala com amostra de referência.</p>
+          </article>
+          <article class="calc-card">
+            <div class="calc-card-icon ci-cat">Cat</div>
+            <strong>Categorias da dieta</strong>
+            <div class="cat-table">
+              <div class="cat-row cat-muito-ruim-row"><span class="cat-badge">Muito ruim</span><span>≤ 150</span></div>
+              <div class="cat-row cat-ruim-row"><span class="cat-badge">Ruim</span><span>150–200</span></div>
+              <div class="cat-row cat-boa-row"><span class="cat-badge">Boa</span><span>200–275</span></div>
+              <div class="cat-row cat-muito-boa-row"><span class="cat-badge">Muito boa</span><span>275–375</span></div>
+              <div class="cat-row cat-excelente-row"><span class="cat-badge">Excelente</span><span>> 375</span></div>
+            </div>
+          </article>
+          <article class="calc-card">
+            <div class="calc-card-icon ci-par">Par</div>
+            <strong>Parâmetros do modelo</strong>
+            <p>25 itens calibrados com parâmetros de discriminação e limiares estimados em amostra de referência. Carregados internamente — sem configuração adicional.</p>
+            <div class="params-chips">
+              <span class="param-chip">25 itens calibrados</span>
+              <span class="param-chip">a ∈ [0.76, 2.24]</span>
+              <span class="param-chip">1–3 limiares por item</span>
+            </div>
+          </article>
+          <article class="calc-card">
+            <div class="calc-card-icon ci-out">CSV</div>
+            <strong>Colunas de saída</strong>
+            <p>O arquivo retornado contém todas as colunas do envio acrescidas das colunas de resultado:</p>
+            <div class="output-col-list">
+              <div class="output-col"><code>F1</code><span>Escore bruto θ</span></div>
+              <div class="output-col"><code>SE_F1</code><span>Erro padrão EAP</span></div>
+              <div class="output-col"><code>escore.cat</code><span>Categoria F1 bruto</span></div>
+              <div class="output-col"><code>F1novo</code><span>Escala 250+50×F1</span></div>
+              <div class="output-col"><code>escore.cat.novo</code><span>Categoria F1novo</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="batch-block">
+        <div class="block-head">
+          <span class="section-label">Análise em lote</span>
+          <h2>Analisar base de dados</h2>
+        </div>
+
+        <div id="upload-panel">
+          <div class="upload-steps">
+            <div class="ustep">
+              <div class="ustep-num">1</div>
+              <div class="ustep-body">
+                <strong>Baixe a planilha modelo</strong>
+                <p>O CSV modelo tem as 25 colunas (<code>esq_q1_sem0</code> … <code>esq_q25_sem0</code>) e uma coluna <code>ID</code> opcional. Preencha uma linha por participante.</p>
+                <a href="/api/template_csv" download class="btn btn-outline">Baixar modelo CSV</a>
+              </div>
+            </div>
+            <div class="ustep">
+              <div class="ustep-num">2</div>
+              <div class="ustep-body">
+                <strong>Envie e analise</strong>
+                <p>Arraste o arquivo ou clique para selecionar. O sistema valida, calcula escores e exibe análise completa da amostra.</p>
+                <form id="researcher-csv-form">
+                  <label class="upload-zone" id="upload-zone" for="researcher-csv-file">
+                    <div class="upload-icon">
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    </div>
+                    <span id="upload-label" class="upload-label">Arraste o CSV aqui ou clique para selecionar</span>
+                    <span class="upload-hint">Aceita vírgula ou ponto-e-vírgula · máx. 4,5 MB</span>
+                    <input type="file" id="researcher-csv-file" accept=".csv" required>
+                  </label>
+                  <button type="submit" class="btn btn-primary btn-batch" id="btn-researcher-submit" disabled>Analisar dados</button>
+                </form>
+                <div id="researcher-status" class="researcher-status" aria-live="polite"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="analysis-dashboard" class="analysis-dashboard hidden">
+          <div class="dash-topbar">
+            <button id="btn-new-analysis" class="back-link" type="button">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+              Nova análise
+            </button>
+            <div class="dash-topbar-right">
+              <span id="dash-filename" class="dash-filename"></span>
+              <button id="btn-download-results" class="btn btn-outline btn-sm" type="button">Baixar CSV com resultados</button>
+            </div>
+          </div>
+
+          <div id="dash-stats" class="dash-stats"></div>
+
+          <div class="dash-charts-row">
+            <div class="dash-chart-card">
+              <div class="dash-chart-title">Distribuição por classificação</div>
+              <div class="dash-donut-layout">
+                <svg id="dash-donut-svg" class="dash-donut-svg" viewBox="0 0 200 200"></svg>
+                <div id="dash-donut-legend" class="dash-donut-legend"></div>
+              </div>
+            </div>
+            <div class="dash-chart-card dash-chart-grow">
+              <div class="dash-chart-title">Distribuição das pontuações (F1novo)</div>
+              <svg id="dash-hist-svg" class="dash-hist-svg" viewBox="0 0 600 220" preserveAspectRatio="xMidYMid meet"></svg>
+            </div>
+          </div>
+
+          <div class="dash-chart-card">
+            <div class="dash-chart-title">Média por item <span class="dash-chart-sub">— % do escore máximo possível</span></div>
+            <div class="dash-items-scroll">
+              <svg id="dash-items-svg" class="dash-items-svg"></svg>
+            </div>
+          </div>
+
+          <div id="dash-errors" class="dash-errors-panel hidden">
+            <div class="dash-errors-head">
+              <div class="dash-errors-title-row">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#b87c00" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                <strong>Inconsistências e dados ausentes</strong>
+                <span id="dash-errors-count" class="dash-errors-badge"></span>
+              </div>
+              <p class="dash-errors-note">Estas linhas foram incluídas quando possível, mas podem influenciar os resultados.</p>
+            </div>
+            <div class="dash-table-scroll">
+              <table class="dash-table dash-table-sm">
+                <thead><tr><th>Linha</th><th>ID</th><th>Tipo</th><th>Detalhe</th></tr></thead>
+                <tbody id="dash-errors-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="dash-chart-card">
+            <div class="dash-chart-title-row">
+              <strong class="dash-chart-title">Resultados por participante</strong>
+              <span id="dash-results-count" class="dash-chart-sub"></span>
+            </div>
+            <div class="dash-table-scroll">
+              <table class="dash-table">
+                <thead><tr><th>#</th><th>ID</th><th>F1novo</th><th>Classificação</th><th>F1 (θ)</th><th>SE</th></tr></thead>
+                <tbody id="dash-results-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SOBRE / INFO ══════════════════════════════════════════════════════ -->
+    <section id="view-info" class="info-shell hidden">
+      <div class="view-back">
+        <button id="btn-back-info" class="back-link" type="button">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          Voltar
+        </button>
+      </div>
+
+      <div class="info-hero">
+        <div class="info-hero-inner">
+          <span class="section-label">Sobre o ESQUADA</span>
+          <h1 class="info-hero-title">Entenda o instrumento</h1>
+          <p class="info-hero-sub">Metodologia, como interpretar seu resultado e respostas para as dúvidas mais comuns.</p>
+        </div>
+        <div class="info-hero-stats">
+          <div class="ihs-stat"><span class="ihs-val">25</span><span class="ihs-label">itens calibrados</span></div>
+          <div class="ihs-stat"><span class="ihs-val">TRI</span><span class="ihs-label">Teoria de Resposta ao Item</span></div>
+          <div class="ihs-stat"><span class="ihs-val">5</span><span class="ihs-label">categorias de dieta</span></div>
+        </div>
+      </div>
+
+      <!-- Bloco 1: O instrumento -->
+      <section class="info-block">
+        <div class="info-block-head">
+          <span class="section-label">O instrumento</span>
+          <h2 class="info-h2">O que é o ESQUADA</h2>
+        </div>
+        <div class="info-prose">
+          <p>O <strong>ESQUADA</strong> (Escala de Qualidade da Dieta) é um instrumento de avaliação alimentar desenvolvido e validado com base em amostras populacionais brasileiras. Diferente de recordatórios de 24 horas ou questionários de frequência alimentar tradicionais, o ESQUADA usa itens ordinais calibrados por <strong>Teoria de Resposta ao Item (TRI)</strong>, permitindo estimar com maior precisão o traço latente subjacente à qualidade da dieta.</p>
+          <p>São <strong>25 itens</strong> que capturam padrões alimentares clinicamente relevantes — da regularidade das refeições à frequência de ultraprocessados. Cada item tem de 2 a 4 categorias de resposta ordenadas, calibradas em amostra de referência. O resultado é expresso na <strong>escala 250/50</strong> pela transformação F1novo = 250 + 50 × θ, com mediana próxima a 250 na população de referência.</p>
+        </div>
+        <div class="avaliado-grid info-domains-grid">
+          <div class="avaliado-card">
+            <div class="avaliado-icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg></div>
+            <strong>Refeições do dia</strong>
+            <p>Café, almoço e substituição de refeições por lanches</p>
+          </div>
+          <div class="avaliado-card">
+            <div class="avaliado-icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22V12m0 0C12 6 6 3 6 3s0 6 6 9zm0 0c0-6 6-9 6-9s0 6-6 9z"/></svg></div>
+            <strong>Frutas e vegetais</strong>
+            <p>Frequência semanal de alimentos in natura e minimamente processados</p>
+          </div>
+          <div class="avaliado-card">
+            <div class="avaliado-icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>
+            <strong>Alimentos integrais</strong>
+            <p>Arroz, pão e cereais integrais na alimentação habitual</p>
+          </div>
+          <div class="avaliado-card">
+            <div class="avaliado-icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
+            <strong>Ultraprocessados</strong>
+            <p>Fast-food, embutidos, refrigerantes e biscoitos industrializados</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bloco 2: Como funciona -->
+      <section class="info-block">
+        <div class="info-block-head">
+          <span class="section-label">Processo</span>
+          <h2 class="info-h2">Como funciona na prática</h2>
+        </div>
+        <div class="isd-steps">
+          <div class="isd-step">
+            <div class="isd-num-wrap"><span class="isd-num">01</span></div>
+            <div class="isd-body">
+              <strong>Responda as 25 perguntas</strong>
+              <p>Cada pergunta é sobre seus hábitos alimentares <em>na última semana</em>. As opções são sempre ordenadas — de menor a maior frequência. Não existe resposta certa ou errada. Você pode pausar a qualquer momento: as respostas ficam salvas automaticamente no navegador.</p>
+            </div>
+          </div>
+          <div class="isd-step">
+            <div class="isd-num-wrap"><span class="isd-num">02</span></div>
+            <div class="isd-body">
+              <strong>O modelo calcula seu escore</strong>
+              <p>Ao finalizar, o <strong>Modelo de Resposta Gradual (GRM)</strong> estima o traço latente θ via <strong>EAP</strong> (Expected A Posteriori) com 61 pontos de quadratura de Gauss-Hermite. O resultado inclui θ bruto (F1), erro padrão (SE) e o escore na escala 250/50 (F1novo).</p>
+            </div>
+          </div>
+          <div class="isd-step">
+            <div class="isd-num-wrap"><span class="isd-num">03</span></div>
+            <div class="isd-body">
+              <strong>Veja e acompanhe seu resultado</strong>
+              <p>A classificação aparece imediatamente — de <em>muito ruim</em> a <em>excelente</em>. Cada avaliação é salva no histórico com gráfico de evolução. Faça novas avaliações quando quiser; o histórico guarda até 20 registros.</p>
+            </div>
+          </div>
+        </div>
+        <div class="ims-grid">
+          <div class="ims-card">
+            <div class="ims-badge">GRM</div>
+            <strong>Modelo de Resposta Gradual</strong>
+            <p>Modela a probabilidade de cada categoria de resposta em função de θ e dos parâmetros de discriminação <em>a</em> e limiares <em>d</em>. Parâmetros: <em>a</em> ∈ [0,76; 2,24].</p>
+          </div>
+          <div class="ims-card">
+            <div class="ims-badge">EAP</div>
+            <strong>Estimação bayesiana</strong>
+            <p>Quadratura de Gauss-Hermite com 61 pontos, a priori N(0,1). Retorna θ esperado (F1) e erro padrão (SE) da estimativa.</p>
+          </div>
+          <div class="ims-card">
+            <div class="ims-badge">250/50</div>
+            <strong>Escala transformada</strong>
+            <p>F1novo = 250 + 50 × θ. Mediana ≈ 250 na população de referência; desvio padrão ≈ 50.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bloco 3: Interpretando o resultado -->
+      <section class="info-block">
+        <div class="info-block-head">
+          <span class="section-label">Classificações</span>
+          <h2 class="info-h2">Interpretando seu escore</h2>
+          <p class="info-block-sub">Cortes definidos na validação do instrumento com amostras de referência da população brasileira.</p>
+        </div>
+        <div class="info-cats">
+          <div class="info-cat-card ic-muito-ruim">
+            <div class="ic-top">
+              <strong>Muito ruim</strong>
+              <code class="ic-range">≤ 150</code>
+            </div>
+            <p>Padrão alimentar muito afastado das recomendações. Alta frequência de ultraprocessados e baixa ingestão de alimentos in natura. Mudanças estruturais na alimentação são recomendadas.</p>
+          </div>
+          <div class="info-cat-card ic-ruim">
+            <div class="ic-top">
+              <strong>Ruim</strong>
+              <code class="ic-range">150 — 200</code>
+            </div>
+            <p>Alimentação abaixo do recomendado, com espaço considerável para melhorias. Aumentar consumo de frutas, legumes e feijões e reduzir ultraprocessados são os primeiros passos.</p>
+          </div>
+          <div class="info-cat-card ic-boa">
+            <div class="ic-top">
+              <strong>Boa</strong>
+              <code class="ic-range">200 — 275</code>
+            </div>
+            <p>Dieta na faixa mediana da população. Hábitos positivos consolidados, mas ainda é possível avançar — especialmente na redução de processados e no aumento da variedade de vegetais.</p>
+          </div>
+          <div class="info-cat-card ic-muito-boa">
+            <div class="ic-top">
+              <strong>Muito boa</strong>
+              <code class="ic-range">275 — 375</code>
+            </div>
+            <p>Excelente adesão às recomendações. Dieta equilibrada, variada e rica em alimentos naturais. O objetivo é manter consistência e regularidade ao longo do tempo.</p>
+          </div>
+          <div class="info-cat-card ic-excelente">
+            <div class="ic-top">
+              <strong>Excelente</strong>
+              <code class="ic-range">&gt; 375</code>
+            </div>
+            <p>Padrão alimentar muito acima da média, altamente alinhado ao Guia Alimentar. Consumo expressivo de alimentos in natura, refeições regulares e baixa ingestão de ultraprocessados.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bloco 4: FAQ -->
+      <section class="info-block">
+        <div class="info-block-head">
+          <span class="section-label">Dúvidas frequentes</span>
+          <h2 class="info-h2">Perguntas e respostas</h2>
+        </div>
+        <div class="faq-list" role="list">
+
+          <div class="faq-item" role="listitem">
+            <button class="faq-q" type="button" aria-expanded="false">
+              Quanto tempo leva para responder?
+              <svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a" hidden><p>Aproximadamente <strong>3 a 5 minutos</strong>. São 25 perguntas de múltipla escolha, sem cálculos ou campos abertos. Você pode pausar e retomar a qualquer momento sem perder o progresso.</p></div>
+          </div>
+
+          <div class="faq-item" role="listitem">
+            <button class="faq-q" type="button" aria-expanded="false">
+              Preciso criar uma conta para usar?
+              <svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a" hidden><p>Não para a <strong>avaliação individual</strong>. Você responde, vê o resultado e acompanha o histórico sem conta. A conta é necessária apenas para a <strong>Área do Pesquisador</strong> (envio em lote de CSV com múltiplos participantes).</p></div>
+          </div>
+
+          <div class="faq-item" role="listitem">
+            <button class="faq-q" type="button" aria-expanded="false">
+              O que acontece se eu sair no meio do questionário?
+              <svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a" hidden><p>As respostas são salvas automaticamente no armazenamento local do navegador a cada interação. Ao retornar, o app detecta o progresso salvo e retoma de onde você parou.</p></div>
+          </div>
+
+          <div class="faq-item" role="listitem">
+            <button class="faq-q" type="button" aria-expanded="false">
+              Meus dados são enviados para algum servidor?
+              <svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a" hidden><p>As respostas são enviadas ao servidor <strong>apenas no momento do cálculo</strong>, como vetor numérico anônimo sem identificação pessoal. O resultado é armazenado localmente. O histórico fica salvo somente no seu navegador.</p></div>
+          </div>
+
+          <div class="faq-item" role="listitem">
+            <button class="faq-q" type="button" aria-expanded="false">
+              Posso fazer mais de uma avaliação?
+              <svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a" hidden><p>Sim, sem limite. Cada resultado é registrado no histórico com data e hora, e o gráfico de evolução permite comparar os escores. O histórico armazena até <strong>20 avaliações</strong>.</p></div>
+          </div>
+
+          <div class="faq-item" role="listitem">
+            <button class="faq-q" type="button" aria-expanded="false">
+              O que significa o escore F1novo?
+              <svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a" hidden><p>F1novo é o escore na <strong>escala 250/50</strong>, calculado como <code>F1novo = 250 + 50 × θ</code>. A mediana da população de referência fica próxima a 250, e a maioria dos usuários pontua entre 150 e 400.</p></div>
+          </div>
+
+          <div class="faq-item" role="listitem">
+            <button class="faq-q" type="button" aria-expanded="false">
+              O que é o Modelo de Resposta Gradual (GRM)?
+              <svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a" hidden><p>Um modelo da <strong>Teoria de Resposta ao Item (TRI)</strong> para itens com categorias ordenadas. Estima a probabilidade de cada categoria em função do traço latente θ usando parâmetros de discriminação (<em>a</em>) e limiares (<em>d</em>) calibrados por item. Os 25 itens do ESQUADA têm <em>a</em> entre 0,76 e 2,24.</p></div>
+          </div>
+
+          <div class="faq-item" role="listitem">
+            <button class="faq-q" type="button" aria-expanded="false">
+              O que é a estimação EAP?
+              <svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a" hidden><p>EAP (<em>Expected A Posteriori</em>) é estimação bayesiana do traço latente. Combina a verossimilhança (GRM) com distribuição a priori N(0,1) e retorna θ como a média da distribuição a posteriori, usando quadratura de Gauss-Hermite com 61 pontos. Também retorna o <strong>erro padrão (SE)</strong> da estimativa.</p></div>
+          </div>
+
+          <div class="faq-item" role="listitem">
+            <button class="faq-q" type="button" aria-expanded="false">
+              Como são definidos os cortes das categorias?
+              <svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a" hidden><p>Os cortes (≤150, 150–200, 200–275, 275–375, >375) foram definidos na <strong>validação do instrumento</strong> com amostras de referência da população brasileira. Representam classificações relativas: "boa" significa acima da mediana, não um ideal absoluto.</p></div>
+          </div>
+
+          <div class="faq-item" role="listitem">
+            <button class="faq-q" type="button" aria-expanded="false">
+              O ESQUADA é adequado para uso em pesquisa?
+              <svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a" hidden><p>Sim. A <strong>Área do Pesquisador</strong> permite enviar CSV com múltiplos participantes e receber F1, SE, F1novo e classificações para toda a amostra, com análise estatística completa e exportação. Recomendamos consultar o artigo de validação antes de usar em publicações.</p></div>
+          </div>
+
+          <div class="faq-item" role="listitem">
+            <button class="faq-q" type="button" aria-expanded="false">
+              O ESQUADA substitui uma consulta nutricional?
+              <svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a" hidden><p>Não. O ESQUADA é uma ferramenta de <strong>rastreamento</strong> da qualidade da dieta, não um instrumento diagnóstico. Para orientação nutricional personalizada, consulte um nutricionista.</p></div>
+          </div>
+
+        </div>
+      </section>
+
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <span class="footer-brand">esquada<span class="footer-brand-dot" aria-hidden="true"></span></span>
+        <small>© 2025 — Avaliação de qualidade da dieta</small>
+      </div>
+      <nav class="footer-links" aria-label="Links do rodapé">
+        <button class="footer-link" type="button" data-nav-section="home-hero">Início</button>
+        <button class="footer-link" type="button" data-nav-section="home-how">Como funciona</button>
+        <button class="footer-link" id="btn-info-footer" type="button">Sobre</button>
+        <button class="footer-link" type="button" data-action="open-researcher">Pesquisadores</button>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- ═══ AUTH MODAL ════════════════════════════════════════════════════════ -->
+  <dialog id="auth-modal" class="auth-modal" aria-labelledby="auth-dialog-title">
+    <div class="auth-modal-inner">
+      <h2 id="auth-dialog-title" class="visually-hidden">Autenticação ESQUADA</h2>
+      <button id="btn-close-auth" class="auth-close" type="button" aria-label="Fechar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="auth-brand">
+        <span class="auth-brand-name">ESQUADA</span>
+        <span class="auth-brand-dot"></span>
+      </div>
+      <div class="auth-tabs" role="tablist">
+        <button class="auth-tab active" data-tab="login" role="tab" type="button">Entrar</button>
+        <button class="auth-tab" data-tab="register" role="tab" type="button">Criar conta</button>
+      </div>
+      <form id="form-login" class="auth-form" novalidate>
+        <p class="auth-subtitle">Acesse a Área do Pesquisador para envio em lote.</p>
+        <div class="auth-field">
+          <label for="login-email">E-mail <span class="req-marker" aria-hidden="true">*</span></label>
+          <input type="email" id="login-email" autocomplete="email" placeholder="seu@email.com" required aria-required="true">
+        </div>
+        <div class="auth-field">
+          <label for="login-password">Senha <span class="req-marker" aria-hidden="true">*</span></label>
+          <div class="auth-field-pw">
+            <input type="password" id="login-password" autocomplete="current-password" placeholder="••••••" required aria-required="true">
+            <button type="button" class="pw-toggle" aria-label="Mostrar senha" data-target="login-password">
+              <svg class="eye-show" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg class="eye-hide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+            </button>
+          </div>
+        </div>
+        <div id="login-error" class="auth-error hidden" role="alert" aria-live="polite"></div>
+        <button type="submit" class="btn btn-primary auth-submit" id="btn-login-submit">Entrar</button>
+        <p class="auth-switch">Não tem conta? <button type="button" class="auth-switch-btn" data-tab="register">Criar conta gratuita</button></p>
+      </form>
+      <form id="form-register" class="auth-form hidden" novalidate>
+
+        <!-- Passo 1: dados pessoais -->
+        <div id="register-step-1">
+          <p class="auth-subtitle">Crie sua conta para acessar a área de pesquisadores.</p>
+          <div class="auth-field">
+            <label for="register-name">Nome completo <span class="req-marker" aria-hidden="true">*</span></label>
+            <input type="text" id="register-name" autocomplete="name" placeholder="Seu nome completo" required aria-required="true">
+          </div>
+          <div class="auth-field">
+            <label for="register-institution">Instituição <span class="req-marker" aria-hidden="true">*</span></label>
+            <input type="text" id="register-institution" autocomplete="organization" placeholder="Universidade ou organização" required aria-required="true">
+          </div>
+          <div class="auth-field">
+            <label for="register-email">E-mail <span class="req-marker" aria-hidden="true">*</span></label>
+            <input type="email" id="register-email" autocomplete="email" placeholder="seu@email.com" required aria-required="true">
+          </div>
+          <div class="auth-field">
+            <label for="register-password">Senha <span class="auth-field-hint">(mín. 6 caracteres)</span> <span class="req-marker" aria-hidden="true">*</span></label>
+            <div class="auth-field-pw">
+              <input type="password" id="register-password" autocomplete="new-password" placeholder="••••••" minlength="6" required aria-required="true">
+              <button type="button" class="pw-toggle" aria-label="Mostrar senha" data-target="register-password">
+                <svg class="eye-show" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <svg class="eye-hide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="auth-field">
+            <label for="register-password2">Confirmar senha <span class="req-marker" aria-hidden="true">*</span></label>
+            <div class="auth-field-pw">
+              <input type="password" id="register-password2" autocomplete="new-password" placeholder="••••••" required aria-required="true">
+              <button type="button" class="pw-toggle" aria-label="Mostrar confirmação" data-target="register-password2">
+                <svg class="eye-show" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <svg class="eye-hide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+              </button>
+            </div>
+          </div>
+          <div id="register-error" class="auth-error hidden" role="alert" aria-live="polite"></div>
+          <button type="submit" class="btn btn-primary auth-submit" id="btn-register-submit">Continuar</button>
+          <p class="auth-switch">Já tem conta? <button type="button" class="auth-switch-btn" data-tab="login">Entrar</button></p>
+        </div>
+
+        <!-- Passo 2: verificação por e-mail -->
+        <div id="register-step-2" class="hidden">
+          <p class="auth-subtitle">Enviamos um código de 6 dígitos para <strong id="register-email-sent"></strong>. Verifique também a caixa de spam.</p>
+          <div class="auth-field">
+            <label for="register-code">Código de verificação <span class="req-marker" aria-hidden="true">*</span></label>
+            <input type="text" id="register-code" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" placeholder="000000" autocomplete="one-time-code" class="code-input" required aria-required="true">
+          </div>
+          <div id="register-code-error" class="auth-error hidden" role="alert" aria-live="polite"></div>
+          <button type="button" class="btn btn-primary auth-submit" id="btn-verify-submit">Verificar e criar conta</button>
+          <p class="auth-switch">
+            <button type="button" class="auth-switch-btn" id="btn-resend-code">Reenviar código</button>
+            &nbsp;·&nbsp;
+            <button type="button" class="auth-switch-btn" id="btn-register-back">Voltar</button>
+          </p>
+        </div>
+
+      </form>
+    </div>
+  </dialog>
+
+  <script src="/static/app.js"></script>
+  <script>
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); io.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    revealEls.forEach(el => io.observe(el));
+  </script>
+</body>
+</html>

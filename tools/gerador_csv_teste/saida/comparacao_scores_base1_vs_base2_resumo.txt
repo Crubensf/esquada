@@ -1,0 +1,14 @@
+Comparacao entre: base1 x base2
+Linhas no arquivo A: 10
+Linhas no arquivo B: 10
+Linhas comparadas: 10
+So no arquivo A: 0
+So no arquivo B: 0
+Maior diferenca absoluta em F1: 0.0
+Media da diferenca absoluta em F1: 0.0
+Maior diferenca absoluta em F1novo: 0.0
+Media da diferenca absoluta em F1novo: 0.0
+Categorias iguais: 10
+Categorias diferentes: 0
+Categorias novas iguais: 10
+Categorias novas diferentes: 0

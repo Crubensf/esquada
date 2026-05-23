@@ -1,0 +1,57 @@
+Comparacao entre: py x r
+Linhas no arquivo A: 129
+Linhas no arquivo B: 129
+Linhas comparadas: 129
+So no arquivo A: 0
+So no arquivo B: 0
+Chave usada no arquivo A: ID
+Chave usada no arquivo B: ID
+Chaves duplicadas no arquivo A: 0
+Chaves duplicadas no arquivo B: 0
+
+Parecer: As categorias finais batem 100% e a diferenca numerica dos scores e pequena.
+
+Analise numerica de F1:
+Comparacoes validas: 129
+Maior diferenca absoluta: 0.008886362264802106
+Media da diferenca absoluta: 0.00015811311836241406
+Mediana da diferenca absoluta: 2.375483300953718e-05
+P90 da diferenca absoluta: 0.00011856403797970709
+P95 da diferenca absoluta: 0.00021397799164715162
+RMSE da diferenca: 0.0009023291942456122
+Dentro de 1e-06: 11
+Dentro de 1e-04: 110
+Dentro de 1e-03: 127
+Dentro de 1e-02: 129
+
+Analise numerica de F1novo:
+Comparacoes validas: 129
+Maior diferenca absoluta: 0.4443181132399019
+Media da diferenca absoluta: 0.007905655918108984
+Mediana da diferenca absoluta: 0.0011877416501420157
+P90 da diferenca absoluta: 0.00592820189903023
+P95 da diferenca absoluta: 0.01069889958287148
+RMSE da diferenca: 0.04511645971225534
+Dentro de 1e-06: 0
+Dentro de 1e-04: 16
+Dentro de 1e-03: 58
+Dentro de 1e-02: 122
+
+Analise categorica de escore.cat:
+Comparacoes validas: 129
+Iguais: 129
+Diferentes: 0
+Taxa de concordancia: 1.0
+
+Analise categorica de escore.cat.novo:
+Comparacoes validas: 129
+Iguais: 129
+Diferentes: 0
+Taxa de concordancia: 1.0
+
+Maiores diferencas encontradas:
+- chave=109; abs_delta_F1=0.008886362264802106; abs_delta_F1novo=0.4443181132399019; escore.cat=muito ruim x muito ruim; escore.cat.novo=muito ruim x muito ruim
+- chave=124; abs_delta_F1=0.004983838683903397; abs_delta_F1novo=0.2491919341949398; escore.cat=muito ruim x muito ruim; escore.cat.novo=muito ruim x muito ruim
+- chave=73; abs_delta_F1=0.0005220442023321503; abs_delta_F1novo=0.02610221011610747; escore.cat=muito ruim x muito ruim; escore.cat.novo=muito ruim x muito ruim
+- chave=129; abs_delta_F1=0.0004812536530924838; abs_delta_F1novo=0.024062682654403034; escore.cat=boa x boa; escore.cat.novo=boa x boa
+- chave=58; abs_delta_F1=0.00043869205105351305; abs_delta_F1novo=0.021934602553130844; escore.cat=boa x boa; escore.cat.novo=boa x boa

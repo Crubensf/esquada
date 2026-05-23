@@ -1,0 +1,19 @@
+# Ambiente Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Banco de dados e segredos — NUNCA versionar
+esquada.db
+.flask_secret
+
+# Artefatos gerados
+qualidade-da-dieta.csv
+
+# Sistema operacional
+.DS_Store
+
+# Configuração local de ferramentas
+.claude/
