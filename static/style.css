@@ -1207,6 +1207,7 @@ body::before {
   background: rgba(255, 255, 255, .12);
   border: 1px solid rgba(255, 255, 255, .18);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   transition: background .2s;
 }
 .rchip:hover { background: rgba(255, 255, 255, .18); }
@@ -1226,6 +1227,7 @@ body::before {
   border-radius: var(--r-md);
   padding: 12px 16px;
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 .user-bar-inner { display: flex; align-items: center; gap: 12px; }
 .user-avatar {
@@ -1517,6 +1519,7 @@ body::before {
 .auth-modal::backdrop {
   background: rgba(15, 28, 37, .42);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 .auth-modal-inner { padding: 38px 38px 32px; position: relative; max-height: 92dvh; overflow-y: auto; }
 .auth-close {
@@ -2053,6 +2056,10 @@ button:focus-visible { border-radius: var(--r-pill); }
   .quiz-shell, .result-shell { padding: 28px 22px; }
   .calc-grid { grid-template-columns: 1fr; }
   .home-section { margin-top: 64px; }
+
+  /* Desabilita animação reveal em mobile — IntersectionObserver não dispara  */
+  /* corretamente quando views são trocadas, deixando seções com opacity:0    */
+  .reveal { opacity: 1 !important; transform: none !important; }
 
   /* ── Researcher area mobile ── */
   .researcher-hero { padding: 20px 18px; gap: 14px; }
