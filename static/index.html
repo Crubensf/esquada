@@ -575,12 +575,16 @@
         <div class="info-hero-inner">
           <span class="section-label">Sobre o ESQUADA</span>
           <h1 class="info-hero-title">Entenda o instrumento</h1>
-          <p class="info-hero-sub">Metodologia, como interpretar seu resultado e respostas para as dúvidas mais comuns.</p>
+          <p class="info-hero-sub">Escala validada de qualidade da dieta, baseada no Guia Alimentar para a População Brasileira e calibrada por Teoria de Resposta ao Item.</p>
+          <div class="info-pub-pill" role="note" aria-label="Referência da publicação">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            <span>Publicado em <strong>Rev Saúde Pública</strong> · 2021;55:39</span>
+          </div>
         </div>
         <div class="info-hero-stats">
           <div class="ihs-stat"><span class="ihs-val">25</span><span class="ihs-label">itens calibrados</span></div>
-          <div class="ihs-stat"><span class="ihs-val">TRI</span><span class="ihs-label">Teoria de Resposta ao Item</span></div>
-          <div class="ihs-stat"><span class="ihs-val">5</span><span class="ihs-label">categorias de dieta</span></div>
+          <div class="ihs-stat"><span class="ihs-val">2.059</span><span class="ihs-label">participantes na validação</span></div>
+          <div class="ihs-stat"><span class="ihs-val">5</span><span class="ihs-label">níveis de qualidade</span></div>
         </div>
       </div>
 
@@ -591,8 +595,9 @@
           <h2 class="info-h2">O que é o ESQUADA</h2>
         </div>
         <div class="info-prose">
-          <p>O <strong>ESQUADA</strong> (Escala de Qualidade da Dieta) é um instrumento de avaliação alimentar desenvolvido e validado com base em amostras populacionais brasileiras. Diferente de recordatórios de 24 horas ou questionários de frequência alimentar tradicionais, o ESQUADA usa itens ordinais calibrados por <strong>Teoria de Resposta ao Item (TRI)</strong>, permitindo estimar com maior precisão o traço latente subjacente à qualidade da dieta.</p>
-          <p>São <strong>25 itens</strong> que capturam padrões alimentares clinicamente relevantes — da regularidade das refeições à frequência de ultraprocessados. Cada item tem de 2 a 4 categorias de resposta ordenadas, calibradas em amostra de referência. O resultado é expresso na <strong>escala 250/50</strong> pela transformação F1novo = 250 + 50 × θ, com mediana próxima a 250 na população de referência.</p>
+          <p>O <strong>ESQUADA</strong> (Escala de Qualidade da Dieta) é a primeira escala brasileira que avalia a qualidade da dieta em coerência com o <strong>Guia Alimentar para a População Brasileira</strong> (2014). Foi desenvolvido por pesquisadores da USP e da UFSC, validado em amostra de <strong>2.059 adolescentes e adultos</strong> entre 15 e 50 anos.</p>
+          <p>Diferente de recordatórios alimentares tradicionais, o ESQUADA usa itens ordinais calibrados pela <strong>Teoria de Resposta ao Item (TRI)</strong> com o Modelo de Resposta Gradual de Samejima — uma estatística mais robusta que considera tanto o consumo de alimentos quanto as práticas alimentares (cozinhar, tomar café da manhã, substituir refeições por lanches).</p>
+          <p>São <strong>25 itens precisos</strong> selecionados dentre 52 candidatos, com excelente ajuste do modelo (RMSEA = 0,01; CFI = 0,99) e <strong>sem comportamento diferencial</strong> em relação a sexo e idade — ou seja, mede com a mesma precisão indivíduos de diferentes perfis.</p>
         </div>
         <div class="avaliado-grid info-domains-grid">
           <div class="avaliado-card">
@@ -651,7 +656,7 @@
           <div class="ims-card">
             <div class="ims-badge">GRM</div>
             <strong>Modelo de Resposta Gradual</strong>
-            <p>Modela a probabilidade de cada categoria de resposta em função de θ e dos parâmetros de discriminação <em>a</em> e limiares <em>d</em>. Parâmetros: <em>a</em> ∈ [0,76; 2,24].</p>
+            <p>Modela a probabilidade de cada categoria em função de θ. Parâmetros de discriminação <em>a</em> entre <strong>0,76 e 2,24</strong> — o item sobre ultraprocessados em casa apresentou a melhor discriminação.</p>
           </div>
           <div class="ims-card">
             <div class="ims-badge">EAP</div>
@@ -661,53 +666,168 @@
           <div class="ims-card">
             <div class="ims-badge">250/50</div>
             <strong>Escala transformada</strong>
-            <p>F1novo = 250 + 50 × θ. Mediana ≈ 250 na população de referência; desvio padrão ≈ 50.</p>
+            <p>Conforme errata do artigo (2023): <code>F1novo = 50 × θ + 250</code>. Mediana ≈ 250 na população de referência; desvio padrão ≈ 50.</p>
           </div>
         </div>
       </section>
 
-      <!-- Bloco 3: Interpretando o resultado -->
+      <!-- Bloco 3: Visualização da escala (continuum) -->
       <section class="info-block">
         <div class="info-block-head">
-          <span class="section-label">Classificações</span>
-          <h2 class="info-h2">Interpretando seu escore</h2>
-          <p class="info-block-sub">Cortes definidos na validação do instrumento com amostras de referência da população brasileira.</p>
+          <span class="section-label">A escala</span>
+          <h2 class="info-h2">Continuum da qualidade da dieta</h2>
+          <p class="info-block-sub">Cinco níveis identificados na validação do instrumento, descritos pela curva de informação do teste com melhor acurácia entre os escores 150 e 350.</p>
         </div>
+
+        <figure class="scale-viz" aria-label="Visualização do continuum de qualidade da dieta da ESQUADA">
+          <div class="scale-viz-bar" role="presentation">
+            <div class="sv-seg sv-ruim1" style="--w: 30%;" data-label="Muito ruim"><span>Muito ruim</span></div>
+            <div class="sv-seg sv-ruim2" style="--w: 10%;" data-label="Ruim"><span>Ruim</span></div>
+            <div class="sv-seg sv-boa"   style="--w: 15%;" data-label="Boa"><span>Boa</span></div>
+            <div class="sv-seg sv-mboa"  style="--w: 20%;" data-label="Muito boa"><span>Muito boa</span></div>
+            <div class="sv-seg sv-exc"   style="--w: 25%;" data-label="Excelente"><span>Excelente</span></div>
+          </div>
+          <div class="scale-viz-axis" aria-hidden="true">
+            <span class="sva-tick" style="--pos: 0%;">0</span>
+            <span class="sva-tick" style="--pos: 30%;">150</span>
+            <span class="sva-tick" style="--pos: 40%;">200</span>
+            <span class="sva-tick" style="--pos: 55%;">275</span>
+            <span class="sva-tick" style="--pos: 75%;">375</span>
+            <span class="sva-tick" style="--pos: 100%;">500</span>
+          </div>
+          <figcaption class="scale-viz-cap">Escala 250/50 — mediana da população de referência ≈ 250.</figcaption>
+        </figure>
+
         <div class="info-cats">
           <div class="info-cat-card ic-muito-ruim">
             <div class="ic-top">
               <strong>Muito ruim</strong>
               <code class="ic-range">≤ 150</code>
             </div>
-            <p>Padrão alimentar muito afastado das recomendações. Alta frequência de ultraprocessados e baixa ingestão de alimentos in natura. Mudanças estruturais na alimentação são recomendadas.</p>
+            <p>Consumo frequente de ultraprocessados e substituição de refeições por lanches em pelo menos um ou dois dias por semana. Consumo de frutas, legumes e verduras em menos de um dia por semana.</p>
           </div>
           <div class="info-cat-card ic-ruim">
             <div class="ic-top">
               <strong>Ruim</strong>
               <code class="ic-range">150 — 200</code>
             </div>
-            <p>Alimentação abaixo do recomendado, com espaço considerável para melhorias. Aumentar consumo de frutas, legumes e feijões e reduzir ultraprocessados são os primeiros passos.</p>
+            <p>Mantém-se o baixo consumo de frutas, legumes e verduras, mas com redução na frequência de ultraprocessados e na substituição de refeições por lanches.</p>
           </div>
           <div class="info-cat-card ic-boa">
             <div class="ic-top">
               <strong>Boa</strong>
               <code class="ic-range">200 — 275</code>
             </div>
-            <p>Dieta na faixa mediana da população. Hábitos positivos consolidados, mas ainda é possível avançar — especialmente na redução de processados e no aumento da variedade de vegetais.</p>
+            <p>Costume de tomar café da manhã pelo menos uma vez por semana. Consumo de frutas, legumes e verduras de 1 a 4 dias por semana. Bebidas açucaradas e alguns ultraprocessados aparecem ocasionalmente.</p>
           </div>
           <div class="info-cat-card ic-muito-boa">
             <div class="ic-top">
               <strong>Muito boa</strong>
               <code class="ic-range">275 — 375</code>
             </div>
-            <p>Excelente adesão às recomendações. Dieta equilibrada, variada e rica em alimentos naturais. O objetivo é manter consistência e regularidade ao longo do tempo.</p>
+            <p>Não há substituição de refeições por lanches nem consumo de ultraprocessados. Frutas, legumes e verduras em 5 ou mais dias por semana. Aveia, quinoa, castanhas e cereais integrais em 1 a 4 dias.</p>
           </div>
           <div class="info-cat-card ic-excelente">
             <div class="ic-top">
               <strong>Excelente</strong>
               <code class="ic-range">&gt; 375</code>
             </div>
-            <p>Padrão alimentar muito acima da média, altamente alinhado ao Guia Alimentar. Consumo expressivo de alimentos in natura, refeições regulares e baixa ingestão de ultraprocessados.</p>
+            <p>Padrão consolidado: sem ultraprocessados e sem substituição de refeições. Frutas, legumes, verduras, castanhas, aveia, quinoa e cereais integrais em <strong>5 ou mais dias por semana</strong>.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bloco 4: Validação científica -->
+      <section class="info-block">
+        <div class="info-block-head">
+          <span class="section-label">Validação</span>
+          <h2 class="info-h2">Evidências científicas de validade</h2>
+          <p class="info-block-sub">Métricas obtidas no estudo psicométrico de validação publicado na <em>Revista de Saúde Pública</em>.</p>
+        </div>
+
+        <div class="validity-grid">
+          <div class="validity-card">
+            <span class="vc-label">Amostra</span>
+            <span class="vc-value">2.059</span>
+            <span class="vc-desc">adolescentes e adultos brasileiros (15–50 anos)</span>
+          </div>
+          <div class="validity-card">
+            <span class="vc-label">Itens finais</span>
+            <span class="vc-value">25<small> / 52</small></span>
+            <span class="vc-desc">selecionados por discriminação e ajuste</span>
+          </div>
+          <div class="validity-card">
+            <span class="vc-label">RMSEA</span>
+            <span class="vc-value">0,01</span>
+            <span class="vc-desc">excelente (limite ≤ 0,05)</span>
+          </div>
+          <div class="validity-card">
+            <span class="vc-label">CFI / TLI</span>
+            <span class="vc-value">0,99</span>
+            <span class="vc-desc">excelente (limite &gt; 0,90)</span>
+          </div>
+          <div class="validity-card">
+            <span class="vc-label">SRMSR</span>
+            <span class="vc-value">0,02</span>
+            <span class="vc-desc">excelente (limite ≤ 0,05)</span>
+          </div>
+          <div class="validity-card">
+            <span class="vc-label">Confiabilidade</span>
+            <span class="vc-value">0,70</span>
+            <span class="vc-desc">empírica, análoga ao α de Cronbach</span>
+          </div>
+        </div>
+
+        <div class="validity-notes">
+          <div class="vn-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            <p><strong>Sem comportamento diferencial (DIF):</strong> a escala mede com a mesma precisão indivíduos de diferentes sexos e idades.</p>
+          </div>
+          <div class="vn-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            <p><strong>Coerente com o Guia Alimentar:</strong> primeira escala brasileira a operacionalizar as recomendações do Guia Alimentar para a População Brasileira (2014).</p>
+          </div>
+          <div class="vn-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            <p><strong>Melhor acurácia entre θ = -2 e +2</strong> (≈ 150 a 350 na escala 250/50), faixa onde se concentra a maior parte da população.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bloco 5: Citação acadêmica -->
+      <section class="info-block">
+        <div class="info-block-head">
+          <span class="section-label">Publicação</span>
+          <h2 class="info-h2">Autores e citação</h2>
+          <p class="info-block-sub">Esta plataforma operacionaliza o instrumento publicado pelo grupo de pesquisa abaixo. Cite o artigo original em trabalhos acadêmicos.</p>
+        </div>
+
+        <div class="authors-block">
+          <ul class="authors-list">
+            <li><strong>Thanise Sabrina Souza Santos</strong> <span>USP — Faculdade de Saúde Pública</span></li>
+            <li><strong>Pedro Henrique de Moura Araújo</strong> <span>UFSC — Engenharia de Produção</span></li>
+            <li><strong>Dalton Francisco de Andrade</strong> <span>UFSC — Informática e Estatística</span></li>
+            <li><strong>Maria Laura da Costa Louzada</strong> <span>USP — Nutrição</span></li>
+            <li><strong>Maria Alice Altenburg de Assis</strong> <span>UFSC — Centro de Ciências da Saúde</span></li>
+            <li><strong>Betzabeth Slater</strong> <span>USP — Nutrição</span></li>
+          </ul>
+        </div>
+
+        <div class="citation-card">
+          <div class="cit-head">
+            <span class="cit-label">Como citar</span>
+            <button type="button" class="cit-copy" id="btn-copy-citation" aria-label="Copiar citação">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span>Copiar</span>
+            </button>
+          </div>
+          <p class="cit-text" id="citation-text">Santos TSS, Araújo PHM, Andrade DF, Louzada MLC, Assis MAA, Slater B. Duas evidências de validade da ESQUADA e níveis de qualidade da dieta dos brasileiros. Rev Saúde Pública. 2021;55:39.</p>
+          <div class="cit-meta">
+            <a class="cit-link" href="https://doi.org/10.11606/s1518-8787.2021055002397" target="_blank" rel="noopener">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              DOI 10.11606/s1518-8787.2021055002397
+            </a>
+            <span class="cit-license">Creative Commons CC-BY · acesso aberto</span>
           </div>
         </div>
       </section>

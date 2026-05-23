@@ -1620,3 +1620,34 @@ function searchUniversities(query) {
     if (input.value.length >= 2) renderList(searchUniversities(input.value));
   });
 })();
+
+
+// ─── Citação acadêmica: copiar para a área de transferência ──────────────────
+
+(function setupCopyCitation() {
+  const btn = document.getElementById('btn-copy-citation');
+  const txt = document.getElementById('citation-text');
+  if (!btn || !txt) return;
+
+  btn.addEventListener('click', async () => {
+    const label = btn.querySelector('span');
+    const original = label ? label.textContent : '';
+    try {
+      await navigator.clipboard.writeText(txt.textContent.trim());
+      if (label) label.textContent = 'Copiado!';
+      btn.classList.add('copied');
+    } catch (_) {
+      // Fallback para navegadores sem Clipboard API
+      const sel = window.getSelection();
+      const range = document.createRange();
+      range.selectNodeContents(txt);
+      sel.removeAllRanges();
+      sel.addRange(range);
+      if (label) label.textContent = 'Selecione e copie';
+    }
+    setTimeout(() => {
+      if (label) label.textContent = original;
+      btn.classList.remove('copied');
+    }, 1800);
+  });
+})();
