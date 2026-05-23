@@ -76,14 +76,24 @@
               <p id="home-score-meta" class="score-meta">Finalize a avaliação para ver sua pontuação na escala 250/50.</p>
               <div class="score-scale">
                 <div class="scale-bar">
-                  <div class="scale-segment seg-muito-ruim"></div>
-                  <div class="scale-segment seg-ruim"></div>
-                  <div class="scale-segment seg-boa"></div>
-                  <div class="scale-segment seg-muito-boa"></div>
-                  <div class="scale-segment seg-excelente"></div>
+                  <div class="scale-segment seg-muito-ruim" style="flex: 14.29;"></div>
+                  <div class="scale-segment seg-ruim"       style="flex: 14.29;"></div>
+                  <div class="scale-segment seg-boa"        style="flex: 21.43;"></div>
+                  <div class="scale-segment seg-muito-boa"  style="flex: 28.57;"></div>
+                  <div class="scale-segment seg-excelente"  style="flex: 21.43;"></div>
+                  <span class="sb-tick" style="--p: 14.29%;" aria-hidden="true"></span>
+                  <span class="sb-tick" style="--p: 28.57%;" aria-hidden="true"></span>
+                  <span class="sb-tick" style="--p: 50%;"    aria-hidden="true"></span>
+                  <span class="sb-tick" style="--p: 78.57%;" aria-hidden="true"></span>
+                  <div id="home-score-marker" class="sb-marker" aria-hidden="true"><span></span></div>
                 </div>
                 <div class="scale-labels">
-                  <span>150</span><span>200</span><span>275</span><span>375</span>
+                  <span style="--p: 0%;">100</span>
+                  <span style="--p: 14.29%;">150</span>
+                  <span style="--p: 28.57%;">200</span>
+                  <span style="--p: 50%;">275</span>
+                  <span style="--p: 78.57%;">375</span>
+                  <span style="--p: 100%;">450+</span>
                 </div>
               </div>
             </div>

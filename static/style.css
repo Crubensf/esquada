@@ -441,26 +441,69 @@ body::before {
 /* Score bar — single-hue light-to-full gradient */
 .scale-bar {
   display: flex; height: 12px; border-radius: var(--r-pill);
-  overflow: hidden;
   background: var(--bg-tint);
   position: relative;
 }
 .scale-segment {
-  flex: 1;
   position: relative;
+  height: 100%;
 }
+.scale-segment:first-child { border-radius: var(--r-pill) 0 0 var(--r-pill); }
+.scale-segment:last-child  { border-radius: 0 var(--r-pill) var(--r-pill) 0; }
 .scale-segment + .scale-segment { box-shadow: inset 1px 0 0 rgba(255,255,255,.6); }
 .seg-muito-ruim { background: var(--score-1); }
 .seg-ruim       { background: var(--score-2); }
 .seg-boa        { background: var(--score-3); }
 .seg-muito-boa  { background: var(--score-4); }
 .seg-excelente  { background: var(--score-5); }
-.scale-labels {
-  display: flex; justify-content: space-between;
+/* Ticks divisórios e marcador para a barra do card home */
+.sb-tick {
+  position: absolute; top: 2px; bottom: 2px;
+  left: var(--p);
+  width: 1px;
+  background: rgba(255, 255, 255, .7);
+  z-index: 2;
+  pointer-events: none;
+}
+.sb-marker {
+  position: absolute; top: -4px; bottom: -4px;
+  left: 0;
+  width: 2.5px;
+  background: var(--ink);
+  border-radius: 2px;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: left 1.2s var(--ease-out), opacity .3s .2s;
+  z-index: 3;
+  pointer-events: none;
+}
+.sb-marker span {
+  position: absolute; top: -19px; left: 50%;
+  transform: translateX(-50%);
   font-family: var(--f-mono);
-  font-size: 10.5px; color: var(--muted); margin-top: 8px;
+  font-size: 9.5px; font-weight: 700;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1px 4px;
+  white-space: nowrap;
+}
+.sb-marker.visible { opacity: 1; }
+.scale-labels {
+  position: relative;
+  height: 16px;
+  font-family: var(--f-mono);
+  font-size: 10px; color: var(--muted); margin-top: 8px;
   font-weight: 500;
 }
+.scale-labels span {
+  position: absolute;
+  left: var(--p);
+  transform: translateX(-50%);
+}
+.scale-labels span:first-child { transform: translateX(0); }
+.scale-labels span:last-child  { transform: translateX(-100%); }
 
 /* Legacy classes (still referenced in CSS but not used in hero now) */
 .hero-stats, .hero-chips, .hero-meta { display: none; }

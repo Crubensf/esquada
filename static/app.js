@@ -120,6 +120,7 @@ const btnHomeScore   = document.getElementById('btn-home-score');
 const homeScoreLabel = document.getElementById('home-score-label');
 const homeScoreValue = document.getElementById('home-score-value');
 const homeScoreMeta  = document.getElementById('home-score-meta');
+const homeScoreMarker = document.getElementById('home-score-marker');
 
 // Área do pesquisador — upload
 const researcherCsvForm   = document.getElementById('researcher-csv-form');
@@ -227,8 +228,19 @@ function updateHomeScoreCard(state = null){
     homeScoreValue.textContent = `${result.F1novo.toFixed(1)} pontos`;
     homeScoreMeta.textContent  = `Categoria atual: ${category}. Clique para abrir o resultado salvo.`;
     if (btnHomeScore){ btnHomeScore.disabled = false; btnHomeScore.classList.add('is-interactive'); }
+    // Posiciona o marcador na barra do card home (escala 100-450)
+    if (homeScoreMarker) {
+      const f = Math.max(100, Math.min(450, result.F1novo));
+      const pct = ((f - 100) / 350) * 100;
+      homeScoreMarker.style.left = `${pct}%`;
+      homeScoreMarker.classList.add('visible');
+      const lbl = homeScoreMarker.querySelector('span');
+      if (lbl) lbl.textContent = result.F1novo.toFixed(0);
+    }
     return;
   }
+
+  if (homeScoreMarker) homeScoreMarker.classList.remove('visible');
 
   if (answered > 0){
     homeScoreLabel.textContent = 'Avaliação em andamento';
