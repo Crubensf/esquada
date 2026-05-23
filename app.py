@@ -41,8 +41,9 @@ from scoring import (
 
 logging.basicConfig(level=logging.ERROR)
 
-RESEND_API_KEY   = os.environ.get("RESEND_API_KEY")
-RESEND_FROM_EMAIL = os.environ.get("RESEND_FROM_EMAIL", "ESQUADA <noreply@resend.dev>")
+BREVO_API_KEY    = os.environ.get("BREVO_API_KEY")
+BREVO_FROM_EMAIL = os.environ.get("BREVO_FROM_EMAIL", "")   # ex: noreply@seudominio.com
+BREVO_FROM_NAME  = os.environ.get("BREVO_FROM_NAME", "ESQUADA")
 
 
 # ─── Chave secreta e autenticação ─────────────────────────────────────────────
@@ -99,7 +100,7 @@ def request_entity_too_large(e):
 # ─── Auth ─────────────────────────────────────────────────────────────────────
 
 def _send_verification_email(to_email: str, code: str) -> None:
-    """Envia o código de verificação via Resend."""
+    """Envia o código de verificação via Brevo (ex-Sendinblue)."""
     html = f"""
     <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
                 max-width:480px;margin:0 auto;padding:40px 32px;color:#0f1c25">
@@ -119,27 +120,28 @@ def _send_verification_email(to_email: str, code: str) -> None:
     </div>
     """
     payload = json.dumps({
-        "from":    RESEND_FROM_EMAIL,
-        "to":      [to_email],
-        "subject": f"{code} — código de verificação ESQUADA",
-        "html":    html,
+        "sender":      {"name": BREVO_FROM_NAME, "email": BREVO_FROM_EMAIL},
+        "to":          [{"email": to_email}],
+        "subject":     f"{code} — código de verificação ESQUADA",
+        "htmlContent": html,
     }).encode()
     req = urllib.request.Request(
-        "https://api.resend.com/emails",
+        "https://api.brevo.com/v3/smtp/email",
         data=payload,
         headers={
-            "Authorization": f"Bearer {RESEND_API_KEY}",
-            "Content-Type":  "application/json",
+            "api-key":      BREVO_API_KEY,
+            "Content-Type": "application/json",
+            "Accept":       "application/json",
         },
     )
     try:
         with urllib.request.urlopen(req, timeout=15) as resp:
             if resp.status >= 400:
                 body = resp.read().decode(errors="replace")
-                raise RuntimeError(f"Resend {resp.status}: {body}")
+                raise RuntimeError(f"Brevo {resp.status}: {body}")
     except urllib.error.HTTPError as e:
         body = e.read().decode(errors="replace")
-        raise RuntimeError(f"Resend {e.code}: {body}") from e
+        raise RuntimeError(f"Brevo {e.code}: {body}") from e
 
 
 @app.route("/api/auth/send-verification", methods=["POST"])
@@ -162,7 +164,7 @@ def send_verification():
     )
     conn.commit()
 
-    if not RESEND_API_KEY:
+    if not BREVO_API_KEY or not BREVO_FROM_EMAIL:
         # Modo desenvolvimento: retorna o código para facilitar testes locais
         return jsonify(ok=True, dev_code=code)
 
