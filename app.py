@@ -22,7 +22,6 @@ import base64 as _b64
 from functools import wraps
 
 import numpy as np
-import pandas as pd
 from flask import Flask, request, jsonify, send_file, send_from_directory, session
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -354,11 +353,15 @@ def analyze_csv():
         total     = len(df)
         items_arr = df[ESQ_COLS].to_numpy(dtype=float, na_value=np.nan)
 
+        # Em bases parciais, colunas inteiramente ausentes não são "perguntas omitidas":
+        # são itens que o pesquisador não incluiu. Só consideramos os itens fornecidos.
+        provided = [j for j in range(25) if not np.isnan(items_arr[:, j]).all()]
+
         # Coleta problemas: células ausentes e valores fora da faixa permitida
         errors = []
         for i in range(total):
             row_id  = str(df.iloc[i]["ID"])
-            missing = [ESQ_COLS[j] for j in range(25) if np.isnan(items_arr[i, j])]
+            missing = [ESQ_COLS[j] for j in provided if np.isnan(items_arr[i, j])]
             if missing:
                 cols_str = ", ".join(missing[:3]) + ("…" if len(missing) > 3 else "")
                 errors.append({"row": i + 1, "id": row_id, "type": "valores_ausentes",
@@ -368,26 +371,21 @@ def analyze_csv():
             for i in range(total):
                 v = items_arr[i, j]
                 if not np.isnan(v) and (v < 0 or v > max_val):
+                    # items_arr está em base-0 interna; exibe o valor na base-1 do usuário.
                     errors.append({"row": i + 1, "id": str(df.iloc[i]["ID"]),
                                    "type": "valor_invalido",
-                                   "detail": f"{ESQ_COLS[j]}: {int(v)} (esperado 0–{max_val})"})
+                                   "detail": f"{ESQ_COLS[j]}: {int(v) + 1} (esperado 1–{max_val + 1})"})
 
         scored           = _score_dataframe(df, par)
         f1_ser           = scored["F1novo"].dropna().astype(float)
         valid_count      = int(len(f1_ser))
-        rows_any_missing = int(np.isnan(items_arr).any(axis=1).sum())
+        rows_any_missing = int(np.isnan(items_arr[:, provided]).any(axis=1).sum()) if provided else 0
 
-        # Estatísticas descritivas
+        # Estatísticas mínimas (resumo média/mín-máx/mediana/categoria removido a pedido do pesquisador)
         stats = {
             "total":      total,
             "valid":      valid_count,
             "incomplete": rows_any_missing,
-            "mean":       round(float(f1_ser.mean()),        2) if valid_count > 0 else None,
-            "median":     round(float(f1_ser.median()),      2) if valid_count > 0 else None,
-            "min":        round(float(f1_ser.min()),         2) if valid_count > 0 else None,
-            "max":        round(float(f1_ser.max()),         2) if valid_count > 0 else None,
-            "std":        round(float(f1_ser.std(ddof=1)),   2) if valid_count > 1 else (0.0 if valid_count == 1 else None),
-            "top_cat":    str(scored["escore.cat.novo"].value_counts().idxmax()) if valid_count > 0 else None,
         }
 
         # Distribuição por categoria
@@ -413,19 +411,8 @@ def analyze_csv():
             item_means_list.append({"label": f"Q{j+1}", "raw_mean": round(raw_mean, 3),
                                     "pct": round(pct, 1), "max": max_val})
 
-        # Resultados individuais para a tabela do dashboard
-        results_list = [
-            {
-                "ID":     str(row["ID"]),
-                "F1novo": None if pd.isna(row["F1novo"]) else round(float(row["F1novo"]), 1),
-                "F1":     None if pd.isna(row["F1"])     else round(float(row["F1"]),     4),
-                "SE_F1":  None if pd.isna(row["SE_F1"])  else round(float(row["SE_F1"]),  4),
-                "cat":    None if pd.isna(row["escore.cat.novo"]) else str(row["escore.cat.novo"]),
-            }
-            for _, row in scored.iterrows()
-        ]
-
-        # CSV pontuado em base64 para download no front-end
+        # CSV pontuado em base64 para download no front-end (resultados por
+        # participante continuam disponíveis aqui, sem a tabela pesada no navegador).
         buf     = io.StringIO()
         scored.to_csv(buf, sep=";", index=False, decimal=",",
                       quoting=csv.QUOTE_NONNUMERIC, quotechar='"')
@@ -436,7 +423,6 @@ def analyze_csv():
             "category_dist": cat_dist,
             "histogram":     hist_data,
             "item_means":    item_means_list,
-            "results":       results_list,
             "errors":        errors,
             "csv_b64":       csv_b64,
         })

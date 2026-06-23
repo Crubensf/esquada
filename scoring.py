@@ -52,7 +52,8 @@ def _validate_response_array(responses: np.ndarray,
         invalid_rows = np.where(~np.isnan(col) & ((col < 0) | (col > max_val)))[0]
         if invalid_rows.size:
             lines = ", ".join(str(i + 1) for i in invalid_rows[:5])
-            problems.append(f"{ESQ_COLS[j]} aceita valores de 0 a {max_val} (linhas: {lines})")
+            # Mensagem na codificação do usuário (base-1): 1 = primeira opção.
+            problems.append(f"{ESQ_COLS[j]} aceita valores de 1 a {max_val + 1} (linhas: {lines})")
     if problems:
         raise ValueError("Foram encontradas respostas fora da faixa esperada: " + "; ".join(problems))
 
@@ -65,28 +66,44 @@ def _read_csv_flexible(raw: bytes) -> pd.DataFrame:
 
     Detecta automaticamente o separador (; ou ,) e retorna um DataFrame
     com as colunas [ID, esq_q1_sem0, …, esq_q25_sem0].
+
+    As respostas são fornecidas em base-1 (1 = primeira opção) e convertidas
+    para a base-0 interna. Aceita bases parciais: perguntas ausentes viram
+    omissões. Cabeçalhos podem vir como esq_qN ou esq_qN_sem0.
     """
     sample = raw[:4096].decode("utf-8", errors="ignore")
     sep    = ";" if sample.count(";") >= sample.count(",") else ","
     df     = pd.read_csv(io.BytesIO(raw), sep=sep)
     df.rename(columns=str.lower, inplace=True)
 
-    # Localiza as 25 colunas de item no CSV enviado
-    found = [c for c in ESQ_COLS if c in df.columns]
-    if len(found) != 25:
-        found = sorted(
-            [c for c in df.columns if c.startswith("esq_q") and c.endswith("_sem0")],
-            key=lambda c: int(c.split("_")[1][1:]),
-        )
-    if len(found) != 25:
-        raise ValueError(f"Esperava 25 colunas ESQUADA, encontrei {len(found)}: {found}")
+    # Localiza as 25 colunas de item no CSV enviado.
+    # Aceita os nomes canônicos (esq_q1_sem0 … esq_q25_sem0) e também a forma
+    # curta usada por pesquisadores (esq_q1 … esq_q25), renomeando para o padrão.
+    for i in range(1, 26):
+        canonical = f"esq_q{i}_sem0"
+        if canonical not in df.columns and f"esq_q{i}" in df.columns:
+            df.rename(columns={f"esq_q{i}": canonical}, inplace=True)
 
+    # Aceita bases parciais: o pesquisador pode enviar apenas as perguntas que usou.
+    found = [c for c in ESQ_COLS if c in df.columns]
+    if len(found) == 0:
+        raise ValueError(
+            "Nenhuma coluna ESQUADA (esq_q1 … esq_q25) foi encontrada. "
+            "Verifique se os cabeçalhos seguem o modelo e se o separador é vírgula ou ponto e vírgula."
+        )
+
+    # Converte os itens enviados de base-1 (codificação do usuário) para base-0 (interna).
     for c in found:
         df[c] = pd.to_numeric(df[c], errors="coerce")
     if df[found].isna().all(axis=1).all():
-        raise ValueError("O CSV nao possui nenhuma linha com ao menos uma resposta ESQUADA preenchida.")
+        raise ValueError("O CSV não possui nenhuma linha com ao menos uma resposta ESQUADA preenchida.")
     for c in found:
-        df[c] = df[c].astype("Int64")
+        df[c] = (df[c] - 1).astype("Int64")
+
+    # Itens não enviados na base parcial entram como ausentes (omissão), sem afetar o EAP.
+    for c in ESQ_COLS:
+        if c not in df.columns:
+            df[c] = pd.Series(pd.NA, index=df.index, dtype="Int64")
 
     # Gera a coluna ID: usa a coluna existente (com fallback numérico) ou cria sequencial
     if "id" in df.columns:
@@ -98,7 +115,7 @@ def _read_csv_flexible(raw: bytes) -> pd.DataFrame:
     else:
         df["ID"] = np.arange(1, len(df) + 1, dtype=int)
 
-    return df[["ID"] + found]
+    return df[["ID"] + ESQ_COLS]
 
 
 # ─── Pontuação ────────────────────────────────────────────────────────────────

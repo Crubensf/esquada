@@ -46,6 +46,15 @@ const CAT_COLORS = {
   'excelente':  '#2e8b57',
 };
 
+// Descrição curta de cada nível — exibida ao passar o mouse sobre uma avaliação do histórico
+const CAT_DESC = {
+  'muito ruim': 'Consumo frequente de ultraprocessados e substituição de refeições por lanches; poucas frutas, legumes e verduras.',
+  'ruim':       'Baixo consumo de frutas, legumes e verduras, porém com menor frequência de ultraprocessados e substituições.',
+  'boa':        'Café da manhã ao menos 1x/semana e frutas, legumes e verduras de 1 a 4 dias; ultraprocessados ocasionais.',
+  'muito boa':  'Sem substituir refeições por lanches nem consumir ultraprocessados; frutas, legumes e verduras em 5+ dias/semana.',
+  'excelente':  'Padrão consolidado: sem ultraprocessados e com integrais, castanhas e frutas, legumes e verduras em 5+ dias/semana.',
+};
+
 
 // ─── Elementos do DOM ─────────────────────────────────────────────────────────
 
@@ -142,8 +151,6 @@ const dashItemsSvg       = document.getElementById('dash-items-svg');
 const dashErrorsPanel    = document.getElementById('dash-errors');
 const dashErrorsTbody    = document.getElementById('dash-errors-tbody');
 const dashErrorsCount    = document.getElementById('dash-errors-count');
-const dashResultsTbody   = document.getElementById('dash-results-tbody');
-const dashResultsCount   = document.getElementById('dash-results-count');
 const dashFilename       = document.getElementById('dash-filename');
 
 
@@ -369,15 +376,18 @@ function renderHistory(){
     <div class="hstat"><span class="hstat-label">Avaliações</span><span class="hstat-value">${hist.length}</span><span class="hstat-sub">no total</span></div>
     <div class="hstat"><span class="hstat-label">Último escore</span><span class="hstat-value">${last.toFixed(1)}</span><span class="hstat-sub">${catLabel(hist[0]['escore.cat.novo'])}</span></div>
     <div class="hstat"><span class="hstat-label">Melhor escore</span><span class="hstat-value">${best.toFixed(1)}</span><span class="hstat-sub">histórico</span></div>
-    <div class="hstat"><span class="hstat-label">Variação</span><span class="hstat-value" style="color:${trend === null ? 'inherit' : trend >= 0 ? '#1e5e48' : '#8c4e28'}">${trend === null ? '—' : (trend >= 0 ? '+' : '') + trend.toFixed(1)}</span><span class="hstat-sub">vs. anterior</span></div>
+    <div class="hstat"><span class="hstat-label">Variação</span><span class="hstat-value" style="color:${trend === null ? 'inherit' : trend >= 0 ? '#1e5e48' : '#8c4e28'}">${trend === null ? '—' : (trend >= 0 ? '+' : '') + trend.toFixed(1)}</span><span class="hstat-sub">em relação à última avaliação</span></div>
   `;
 
   buildChart(hist);
 
-  listEl.innerHTML = hist.map((h, i) => {
+  const capNote = hist.length >= MAX_HISTORY
+    ? `<div class="hist-cap-note" style="grid-column:1/-1;background:#fbf3e2;border:1px solid #ecd9ad;color:#7a5a12;border-radius:10px;padding:10px 14px;font-size:13px;line-height:1.45;margin-bottom:4px">Seu histórico atingiu o limite de ${MAX_HISTORY} avaliações. As mais antigas são removidas automaticamente ao adicionar novas — baixe ou anote os resultados que quiser guardar.</div>`
+    : '';
+  listEl.innerHTML = capNote + hist.map((h, i) => {
     const slug = CAT_SLUG[h['escore.cat.novo']] || 'boa';
     return `
-      <div class="hcard" data-idx="${i}">
+      <div class="hcard" data-idx="${i}" title="${(CAT_DESC[h['escore.cat.novo']] || '').replace(/"/g, '&quot;')}">
         <span class="hcard-num">${i+1}</span>
         <div class="hcard-body">
           <div class="hcard-date">${fmtDate(h.date)}</div>
@@ -1093,12 +1103,8 @@ function fmtN(v, dec=1){ return v !== null && v !== undefined ? (+v).toFixed(dec
 
 function renderStats(stats){
   dashStats.innerHTML = [
-    {label:'Participantes',   value: stats.valid ?? stats.n ?? '—', sub: `de ${stats.total ?? '—'} linhas`},
-    {label:'Média F1novo',    value: fmtN(stats.mean), sub: `DP ${fmtN(stats.std ?? stats.sd)}`},
-    {label:'Min / Máx',       value: `${fmtN(stats.min, 0)} / ${fmtN(stats.max, 0)}`, sub: ''},
-    {label:'Mediana',         value: fmtN(stats.median), sub: ''},
-    {label:'Incompletos',     value: stats.incomplete ?? '—', sub: 'linhas com dados ausentes'},
-    {label:'Categoria modal', value: CAT_LABELS[stats.top_cat] ?? stats.top_cat ?? '—', sub: ''},
+    {label:'Participantes', value: stats.valid ?? stats.n ?? '—', sub: `de ${stats.total ?? '—'} linhas`},
+    {label:'Incompletos',   value: stats.incomplete ?? '—', sub: 'linhas com dados ausentes'},
   ].map(s => `<div class="dstat"><div class="dstat-label">${s.label}</div><div class="dstat-value">${s.value}</div><div class="dstat-sub">${s.sub}</div></div>`).join('');
 }
 
@@ -1191,21 +1197,6 @@ function renderItemBars(itemMeans){
   dashItemsSvg.innerHTML = rows;
 }
 
-function renderResultsTable(results){
-  dashResultsCount.textContent = `${results.length} participante${results.length !== 1 ? 's' : ''}`;
-  dashResultsTbody.innerHTML = results.map((r, i) => {
-    const cls = CAT_BADGE_CLASS[r.cat] || '';
-    return `<tr>
-      <td>${i + 1}</td>
-      <td>${r.ID ?? '—'}</td>
-      <td><strong>${r.F1novo !== null ? (+r.F1novo).toFixed(1) : '—'}</strong></td>
-      <td><span class="cat-badge ${cls}">${CAT_LABELS[r.cat] || r.cat || '—'}</span></td>
-      <td>${r.F1 !== null ? (+r.F1).toFixed(3) : '—'}</td>
-      <td>${r.SE_F1 !== null ? (+r.SE_F1).toFixed(3) : '—'}</td>
-    </tr>`;
-  }).join('');
-}
-
 function renderErrors(errors){
   if (!errors || errors.length === 0){ dashErrorsPanel.classList.add('hidden'); return; }
   dashErrorsPanel.classList.remove('hidden');
@@ -1221,7 +1212,6 @@ function renderDashboard(data, filename){
   renderDonut(data.category_dist);
   renderHistogram(data.histogram);
   renderItemBars(data.item_means);
-  renderResultsTable(data.results);
   renderErrors(data.errors);
   _lastCsvB64 = data.csv_b64 || null;
   dashFilename.textContent = filename || '';

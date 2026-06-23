@@ -495,7 +495,7 @@
               <div class="ustep-num">1</div>
               <div class="ustep-body">
                 <strong>Baixe a planilha modelo</strong>
-                <p>O CSV modelo tem as 25 colunas (<code>esq_q1_sem0</code> … <code>esq_q25_sem0</code>) e uma coluna <code>ID</code> opcional. Preencha uma linha por participante.</p>
+                <p>O CSV modelo tem as 25 colunas (<code>esq_q1_sem0</code> … <code>esq_q25_sem0</code>) e uma coluna <code>ID</code> opcional. Preencha uma linha por participante, com valores a partir de <strong>1</strong> (1 = primeira opção). Você pode enviar apenas as perguntas que utilizou — as demais são tratadas como ausentes.</p>
                 <a href="/api/template_csv" download class="btn btn-outline">Baixar modelo CSV</a>
               </div>
             </div>
@@ -550,7 +550,14 @@
           </div>
 
           <div class="dash-chart-card">
-            <div class="dash-chart-title">Média por item <span class="dash-chart-sub">— % do escore máximo possível</span></div>
+            <div class="dash-chart-title">Desempenho médio por pergunta <span class="dash-chart-sub">— % do máximo possível em cada item</span></div>
+            <p class="dash-chart-note" style="margin:2px 2px 12px;font-size:13px;line-height:1.5;color:#68756f">
+              Cada barra corresponde a uma das 25 perguntas (Q1 = <code>esq_q1</code> … Q25 = <code>esq_q25</code>) e mostra
+              o quanto a amostra, em média, se aproximou da <strong>melhor resposta possível</strong> naquele item:
+              <strong>0%</strong> se todos marcaram a pior opção e <strong>100%</strong> se todos marcaram a melhor.
+              Barras mais cheias indicam <strong>melhor</strong> qualidade da dieta naquele item; barras curtas apontam
+              perguntas em que a amostra teve pior desempenho. Respostas em branco são ignoradas no cálculo.
+            </p>
             <div class="dash-items-scroll">
               <svg id="dash-items-svg" class="dash-items-svg"></svg>
             </div>
@@ -573,18 +580,7 @@
             </div>
           </div>
 
-          <div class="dash-chart-card">
-            <div class="dash-chart-title-row">
-              <strong class="dash-chart-title">Resultados por participante</strong>
-              <span id="dash-results-count" class="dash-chart-sub"></span>
-            </div>
-            <div class="dash-table-scroll">
-              <table class="dash-table">
-                <thead><tr><th>#</th><th>ID</th><th>F1novo</th><th>Classificação</th><th>F1 (θ)</th><th>SE</th></tr></thead>
-                <tbody id="dash-results-tbody"></tbody>
-              </table>
-            </div>
-          </div>
+          <p class="dash-download-note" style="margin:4px 2px 0;font-size:13px;line-height:1.5;color:#68756f">Os escores de cada participante (F1, SE, F1novo e classificação) estão no arquivo <strong>CSV com resultados</strong> disponível para download acima.</p>
         </div>
       </div>
     </section>
